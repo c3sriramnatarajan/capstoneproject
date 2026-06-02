@@ -19,7 +19,15 @@
       "Bash(git remote *)",
       "Bash(git add *)",
       "Bash(git commit *)",
-      "Bash(git branch *)"
+      "Bash(git branch *)",
+      "Bash(git push *)",
+      "Bash(gh auth *)",
+      "Read(//Users/Sriram.Natarajan/.ssh/**)",
+      "Bash(ssh -T git@github.com)",
+      "Bash(ssh-keyscan github.com)",
+      "Bash(git mv *)",
+      "Bash(mv Screenshot*11.09.49* screenshot_1.png)",
+      "Bash(mv Screenshot*11.10.00* screenshot_2.png)"
     ]
   }
 }
