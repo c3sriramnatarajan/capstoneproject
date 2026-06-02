@@ -1,0 +1,10 @@
+type SourceWindTurbineEvent mixes Source { 
+
+    start: string 
+    end: string 
+
+    event_code: string 
+
+    asset: string 
+
+}

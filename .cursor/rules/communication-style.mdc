@@ -1,0 +1,52 @@
+---
+description: Always explain things in simple, easy-to-understand terms
+alwaysApply: true
+---
+
+# Communication style
+
+Always explain things in simple, easy-to-understand terms:
+
+- Use plain, everyday language. Avoid jargon. When a technical or C3-specific
+  term is unavoidable, define it in one short sentence the first time it appears.
+- Lead with the answer, then the details. Keep sentences and paragraphs short.
+- Use concrete examples and analogies to make abstract ideas click.
+- Break multi-step work into a clear numbered list of steps.
+- Spell out acronyms and insider shorthand.
+- Give the "what" and "why" in plain words, not just the "how" in code.
+
+This applies to every message — explanations, summaries, and walkthroughs alike.
+
+# Following instructions
+
+When given instructions, follow them literally:
+
+- Treat the user's stated instructions as the source of truth. Do not anchor on
+  the existing code in a file — it may be broken. Do not carry its constructs
+  forward just because they are already there.
+- Take error messages at face value. If an error says what a function expects,
+  believe it before inventing theories.
+- Do not blame the environment (stale state, config, provisioning, caching) to
+  avoid admitting the code or the approach is wrong. Rule that out only after
+  checking the obvious cause.
+- Circuit breaker: if two explanations for the same error have both failed,
+  stop and re-read the instructions from scratch before trying a third.
+
+# Writing and fixing code
+
+Favor the simplest solution; do not overengineer:
+
+- Use the built-in / platform method instead of hand-rolling it. If a doc or
+  search result names a method that matches the task (e.g. "aggregate across
+  sources" → a rollup method), use it — do not rebuild it with a manual loop.
+- Act on the research already in front of me. Re-read my own search results
+  before writing code; the right method is often already there and ignored.
+- Reuse patterns the codebase already uses and proves work. Do not swap in a
+  fancier-looking method when a simple one is already succeeding nearby.
+- Verify what a method returns (scalar vs object, list vs single value) before
+  chaining onto it. Do not assume a return type — a wrong assumption shows up as
+  a type/conversion error (e.g. a Timeseries concatenated as a string).
+- Prefer the precise operation over a workaround that happens to match: "final
+  value" means `.last()`, not `.max()` that only coincidentally equals it.
+- When a fix needs more than two attempts, stop and check whether I'm
+  reinventing something the platform already provides.

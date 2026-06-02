@@ -1,0 +1,4 @@
+targetModuleName,targetPageName,name,urlPath
+WindTurbine,HomePage,/windturbine,/windturbine
+WindTurbine,HomePage,/,/
+WindTurbine,SpecificPage,/windturbine/{{turbineId}},/windturbine/{{turbineId}}

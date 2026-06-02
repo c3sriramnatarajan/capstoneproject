@@ -1,0 +1,15 @@
+/**
+ * Base.c3typ
+ *
+ * Captures an installation with coordinates and the aircraft assigned there.
+ */
+
+entity type Base {
+  name: string
+
+  latitude: double
+
+  longitude: double
+
+  aircraft: [Aircraft](location)
+}

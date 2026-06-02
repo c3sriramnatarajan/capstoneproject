@@ -1,0 +1,31 @@
+id,address,city,latitude,longitude
+store_001,123 Market St,city_001,37.7749,-122.4194
+store_002,456 Mission St,city_001,37.7849,-122.4094
+store_003,789 Castro St,city_001,37.7609,-122.435
+store_004,321 First St,city_002,37.3382,-121.8863
+store_005,654 Park Ave,city_002,37.3352,-121.8811
+store_006,987 Santa Clara St,city_002,37.3541,-121.9552
+store_007,147 Broadway,city_003,37.8044,-122.2708
+store_008,258 Telegraph Ave,city_003,37.8199,-122.269
+store_009,369 Grand Ave,city_003,37.8103,-122.2654
+store_010,741 Michigan Ave,city_004,41.8781,-87.6298
+store_011,852 State St,city_004,41.8925,-87.6279
+store_012,963 LaSalle St,city_004,41.8847,-87.6324
+store_013,159 Rush St,city_004,41.8955,-87.6261
+store_014,357 Lake St,city_005,41.7612,-88.2904
+store_015,468 Main St,city_005,41.7658,-88.3201
+store_016,579 Broadway,city_006,40.7128,-74.006
+store_017,680 Fifth Ave,city_006,40.7589,-73.9851
+store_018,791 Madison Ave,city_006,40.7614,-73.9776
+store_019,812 Park Ave,city_006,40.7681,-73.9644
+store_020,923 Lexington Ave,city_006,40.7505,-73.9751
+store_021,134 Broad St,city_007,40.7282,-74.1776
+store_022,245 Market St,city_007,40.7357,-74.1724
+store_023,356 Sunset Blvd,city_008,34.0522,-118.2437
+store_024,467 Hollywood Blvd,city_008,34.1018,-118.3398
+store_025,578 Wilshire Blvd,city_008,34.0619,-118.357
+store_026,689 Santa Monica Blvd,city_008,34.0901,-118.3644
+store_027,790 Ocean Ave,city_009,33.7701,-118.1937
+store_028,801 Pine Ave,city_009,33.7692,-118.1931
+store_029,912 Beach Blvd,city_010,33.8366,-117.9143
+store_030,123 Harbor Blvd,city_010,33.8324,-117.9189

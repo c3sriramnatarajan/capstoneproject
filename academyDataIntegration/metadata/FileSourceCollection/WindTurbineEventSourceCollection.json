@@ -1,0 +1,7 @@
+{
+    "name": "WindTurbineEventSourceCollection",
+    "source": "SourceWindTurbineEvent",
+    "sourceSystem": {
+        "name": "Canonical"
+    }
+}

@@ -1,0 +1,6 @@
+entity type OffshoreWindTurbine extends WindTurbine type key 'OFFSHORE' {
+    /**
+     * The hourly operation cost for this offshore wind turbine.
+     */
+    operationCostPerHour: double = 100.0
+}

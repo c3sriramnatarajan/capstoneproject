@@ -1,0 +1,13 @@
+entity type LineItem {
+
+    /** 
+     * The full address of the store.
+     */
+    
+    sale: Sale 
+    quantity: float 
+
+    price: double stored calc(quantity * product.unitPrice)
+    product: Product
+
+}

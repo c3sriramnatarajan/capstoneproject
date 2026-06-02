@@ -1,0 +1,13 @@
+entity type Sale {
+
+    /** 
+     * The full address of the store.
+     */
+    date: !datetime 
+    paymentMethod: !string enum('Credit Card', 'Debit Card', 'Cash', 'Mobile Payment')
+    store: Store 
+    taxRate: float calc store.city.salesTaxRate / 100
+    totalPrice: double stored calc round(sum(itemization.price)*(1 + taxRate), 2)
+    itemization: [LineItem](sale)
+   
+}

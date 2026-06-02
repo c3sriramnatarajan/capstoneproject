@@ -1,0 +1,13 @@
+/**
+ * SensorMeasurment.c3typ
+ *
+ * A single time-stamped numeric measurement in a sensor series (e.g. one temperature or vibration reading).
+ */
+
+@db(datastore='kv',
+partitionKeyField='parent',
+persistDuplicates=false,
+compactType=true)
+entity type SensorMeasurement mixes TimedDataPoint<SensorMeasurementSeries> {
+    measurement: double
+}

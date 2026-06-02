@@ -1,0 +1,28 @@
+---
+description: C3 notebook (.c3nb) troubleshooting and usage patterns
+globs: "**/*.c3nb"
+alwaysApply: false
+---
+
+# C3 Notebook Application Context
+
+When a C3 notebook (.c3nb) throws a ReferenceError like "TypeName is not defined",
+the most likely cause is that the notebook is not connected to the correct application.
+
+## Fix
+
+The user needs to click **Select Application** in the notebook UI and choose the
+correct package (e.g., `academyUI`). This sets the `appName` in the notebook
+metadata so the runtime resolves types from that package.
+
+## How to diagnose
+
+Check the notebook metadata (at the end of the JSON): `"appName":"c3"` means it's
+using the default runtime, which won't have custom types. It should match the
+package name (e.g., `"appName":"academyUI"`).
+
+## Do NOT assume
+
+- Do not assume the package hasn't been provisioned.
+- Do not tell the user to re-provision unless you have confirmed the app is
+  already selected and provisioning truly hasn't happened.

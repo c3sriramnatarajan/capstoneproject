@@ -1,0 +1,16 @@
+/**
+ * Fill in type description here.
+ */
+entity type Fixture schema name "FIXTURE" {
+
+  /**
+   * Fill in field description here.
+   */
+  
+  apartment: Apartment
+
+  //Bulb history
+  bulbHistory: [SmartBulbToFixtureRelation](to)
+  currentBulb: SmartBulb stored calc bulbHistory[0].(end == null).from
+
+}

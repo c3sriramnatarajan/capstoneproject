@@ -1,0 +1,101 @@
+{
+  "cells": [
+    {
+      "kind": 1,
+      "languageId": "markdown",
+      "value": "# File Upload API Exercise\n\n## Introduction\n\nIn this exercise, you will walk through the steps required to load file data into your application.\nYou’ll begin by loading the file data into the appropriate file source collection. Next, you’ll sync the file to that collection. Finally, you’ll process the data, which will load it into the correct application type.\n\nBefore running the following code cells, ensure you have `academydi` sellected as your application for this notebook.",
+      "output": [],
+      "executionSummary": {}
+    },
+    {
+      "kind": 1,
+      "languageId": "markdown",
+      "value": "### Step 1: Load data into FileSourceCollection\n\nThe below code cell will provide you with the cURL command for sending data files to the appropriate file source collection.\n\n1. Replace `\"fscname\"` with the name of the FSC you want to send your file to.\n2. Replace `\"csvName\"` with the name of the csv you want to load into the FSC.\n3. Replace `path/to/your/DataFiles/csvName.csv` with the absolute file path to the csv.\n4. Ensure you have your application selected for this notebeook.\n5. Run the cell",
+      "output": [],
+      "executionSummary": {}
+    },
+    {
+      "kind": 2,
+      "languageId": "javascript",
+      "value": "/*\nThe method FileSourceCollection.forName(fscName).inboxUrl() retrieves the inbox URL associated with a specific FileSourceCollection instance. \nBy default, this URL is constructed by concatenating the root URL of the corresponding FileSourceSystem instance with the name of the FileSourceCollection.\n*/\nvar contentLocation =\n  FileSourceCollection.forName(\"fscname\").inboxUrl() + \"csvName.csv\";\n\n// The type of content in the file\nvar contentType = \"text/csv\";\n\n// Usually \"UTF-8\"\nvar contentEncoding = \"UTF-8\";\n\n// path to the file you want uploaded on your local machine\nvar localFilePath = \"path/to/your/DataFiles/csvName.csv\";\n\n// auth token\nvar authKind = AuthenticationKind.C3;\n\n/*\nThe Curl.file() method generates a complete cURL command for uploading a file from your local machine to the appropriate FileSourceCollection folder within your SourceSystem.\nTo execute the upload, simply run thereturned cURL command in your VS Code terminal.\n*/ \nCurl.file({\n  contentLocation: contentLocation,\n  contentType: contentType,\n  contentEncoding: contentEncoding,\n  localFilePath: localFilePath,\n  dataBinary: true,\n  authenticationKind: authKind,\n  authenticationToken: User.myUser().sessionToken().signedToken,\n});",
+      "output": [],
+      "executionSummary": {}
+    },
+    {
+      "kind": 1,
+      "languageId": "markdown",
+      "value": "### Code Explanation\n\nIf you need to modify the default inbox URL for a given FileSourceCollection—for example, to point to an S3 bucket or another external source system—click [here](https://developer.c3.ai/docs/latest/guide/guide-dm-di/di-data-declare-pipeline-file-source) to learn more through our developer portal. \n\n### Step 2: Run the cURL command \n\n- Open the VS Code terminal window. \n- Run the curl command returned by the previous cell.\n\n### Step 3: Check Returned Status\n\nExamine the HTTP status code returned in the response. A status code of 200 OK signifies that the local file has been successfully uploaded to the remote file system.\n\nIf you did not recieve a HTTP 200 OK click [here](https://developer.c3.ai/docs/latest/guide/guide-dm-di/di-data-upload-files) to check the error status code for debugging. \n\nTo confirm the file has been successfully uploaded to the file source collection folder: \n- Replace `fscname` with the name of your file source collection.\n- Run the following code snippet. You should see one entry returned.\n",
+      "output": [],
+      "executionSummary": {}
+    },
+    {
+      "kind": 2,
+      "languageId": "javascript",
+      "value": "// This checks that the file was succesfully uploaded to the FileSourceCollection\nFileSystem.listFiles(\n  FileSourceCollection.forName(\"fscname\").inboxUrl()\n);",
+      "output": [],
+      "executionSummary": {}
+    },
+    {
+      "kind": 1,
+      "languageId": "markdown",
+      "value": "### Step 4: Sync the WindTurbine.csv in the WindTurbineSourceCollection\n\nThis is a critical step to ensure your data file is synced with the `FileSourceCollection`, allowing it to be ingested into the downstream C3 Types. \nWhen loading a file through AI Studio and selecting the `FileSourceCollection` associated with the CSV, this step occurs automatically.\n- Replace `fscname` with the name of your file source collection.\n- Run the following code snippet",
+      "output": [],
+      "executionSummary": {}
+    },
+    {
+      "kind": 2,
+      "languageId": "javascript",
+      "value": "// SourceFile.syncAll() converts the raw file into a source file Type\nSourceFile.syncAll(\n  FileSourceCollection.forName(\"fscname\").inboxUrl()\n);\n",
+      "output": [],
+      "executionSummary": {}
+    },
+    {
+      "kind": 1,
+      "languageId": "markdown",
+      "value": "### Step 5\n\nThis step confirms that the original file has been successfully converted into a `SourceFile`.  \nTo verify that the sync was successful, run the following code snippet.  \nYou should see one entry for the `SourceType` associated with your `FileSourceCollection`—for example, `SourceWindTurbine`.\n\n- Run the following code cell",
+      "output": [],
+      "executionSummary": {}
+    },
+    {
+      "kind": 2,
+      "languageId": "javascript",
+      "value": "// Check that your file has been converted to a Source File succesfully\nSourceFile.fetch();",
+      "output": [],
+      "executionSummary": {}
+    },
+    {
+      "kind": 1,
+      "languageId": "markdown",
+      "value": "### Step 6\n\nThe final step in the data integration pipeline is to ingest your data.  \nTo begin the ingestion process for your `SourceFiles`, run the following command.\n\n- Run the following code cell to start data ingestion",
+      "output": [],
+      "executionSummary": {}
+    },
+    {
+      "kind": 2,
+      "languageId": "javascript",
+      "value": "// Start data ingestion\nSourceFile.processAll();",
+      "output": [],
+      "executionSummary": {}
+    },
+    {
+      "kind": 2,
+      "languageId": "javascript",
+      "value": "// Check status of data load \nSourceFile.fetch().first().state()",
+      "output": [],
+      "executionSummary": {}
+    },
+    {
+      "kind": 2,
+      "languageId": "javascript",
+      "value": "// Verify that the data was successfully loaded into the appropriate type.\n// In this example, we'll check that the data was persisted to the `WindTurbine` type.\nWindTurbine.fetchCount()",
+      "output": [],
+      "executionSummary": {}
+    }
+  ],
+  "metadata": {
+    "id": "ed9ffa87-e700-4046-99f0-92b5b6efc89d",
+    "appName": "c3trainingdi",
+    "serializerVersion": "1",
+    "runtime": "js-rhino"
+  }
+}

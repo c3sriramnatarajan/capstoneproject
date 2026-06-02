@@ -1,0 +1,6 @@
+/**
+ * Fill in type description here.
+ */
+entity type SmartBulbMeasurementSeries mixes IntervalDataHeader<SmartBulbMeasurement> schema name "SMARTBULBMEASUREMENTSERIES" {
+    smartBulb: !SmartBulb
+}

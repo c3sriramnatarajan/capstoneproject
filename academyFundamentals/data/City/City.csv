@@ -1,0 +1,11 @@
+id,name,population,salesTaxRate
+city_001,San Francisco,873965,8.625
+city_002,San Jose,1021795,9.375
+city_003,Oakland,440646,10.25
+city_004,Chicago,2746388,10.25
+city_005,Aurora,180542,8.25
+city_006,New York,8336817,8.875
+city_007,Newark,311549,6.625
+city_008,Los Angeles,3898747,9.5
+city_009,Long Beach,466742,10.25
+city_010,Anaheim,346824,7.75

@@ -1,0 +1,25 @@
+/**
+ * The Canonical format for a WindTurbineEvent entity.
+ */
+
+type CanonicalWindTurbineEvent mixes Canonical<CanonicalWindTurbineEvent> {
+  /**
+   * The start timestamp of the event.
+   */
+  start:      !datetime
+
+  /**
+   * The end timestamp of the event.
+   */
+  end:        !datetime
+
+  /**
+   * The event code associated with the event.
+   */
+  eventCode:  !string
+
+  /**
+   * The ID for the associated {@link WindTurbine}.
+   */
+  asset:      !string
+}

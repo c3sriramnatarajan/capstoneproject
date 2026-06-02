@@ -1,0 +1,26 @@
+/**
+ * Stores the output of the TotalHoursOnByManufacturerJob MapReduce job:
+ * the total bulb-hours accumulated, grouped by manufacturer over a time range.
+ */
+type TotalHoursOnByManufacturer mixes Persistable {
+
+  /**
+   * The bulb manufacturer this result is for.
+   */
+  manufacturer: !string
+
+  /**
+   * Start of the time range covered by this result.
+   */
+  start: !datetime
+
+  /**
+   * End of the time range covered by this result.
+   */
+  end: !datetime
+
+  /**
+   * Total hours the manufacturer's bulbs were on during the time range.
+   */
+  totalHours: !double
+}

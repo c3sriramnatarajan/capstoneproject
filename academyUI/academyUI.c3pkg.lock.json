@@ -1,0 +1,7 @@
+{
+  "version" : "2.0.0",
+  "declaredDependencies" : {
+    "uiComponentLibraryReact" : "8.9"
+  },
+  "resolvedDependencies" : { }
+}

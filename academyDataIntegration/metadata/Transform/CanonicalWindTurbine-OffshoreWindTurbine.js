@@ -1,0 +1,22 @@
+data = {
+    name: 'CanonicalWindTurbine-OffshoreWindTurbine',
+    source: 'CanonicalWindTurbine',
+    target: 'OffshoreWindTurbine',
+    filter: "turbineType == 'offshore'",
+    projection: {
+        // Map the canonical's asset onto the entity's unique id field
+        id: asset,
+
+        // The power in watts of the WindTurbine
+        power: powerInWatts,
+
+        // The latitude of the WindTurbine
+        latitude: latitude,
+
+        // The longitude of the WindTurbine
+        longitude: longitude,
+
+        // The reference to the Manufacturer's id
+        manufacturer: { id: manufacturer },
+    },
+};

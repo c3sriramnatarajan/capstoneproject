@@ -1,0 +1,16 @@
+type SourceWindTurbine mixes Source { 
+
+    @ser(name="turbine id") // Name of column in source data
+    turbineId: string // Platform-compliant name that will be used for processing
+
+    lat_long: string
+
+    manufacturer: string
+
+    @ser(name="power(kW)")  // Name of column in source data
+    powerInkW: double // Platform-compliant name that will be used for processing
+
+    @ser(name="turbineType") // Name of column in the new source data (verify spelling against the new CSV header)
+    turbineType: string
+
+}

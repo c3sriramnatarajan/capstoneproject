@@ -1,0 +1,269 @@
+{
+    "cells": [
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "# Lesson 10: Create a Turbine Dashboard ",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "In this lesson, you'll create a dashboard page that displays detailed information for a specific `WindTurbine`. The dashboard will include:\n- Turbine metrics: Power output, wind speed, temperature, and efficiency displayed in card components\n- Turbine details: Country, manufacturer, total energy generated, install date, and build date displayed in a details tab\n\nYou'll build this page using reusable React components to organize and present the turbine data.",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "### Learning Objectives",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "After completing this lesson, you will be able to:\n- Reuse React components across different pages.\n- Update turbine information and persist changes.",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "### Estimated Time",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "This lesson will take approximately **15 minutes** to complete.",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "### Lab Support",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "For support, check out the <a href='https://learn.c3.ai/page/help-center' target='_blank'>Help Center</a> for information.",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "-----",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "## Part 1: Fetch the `WindTurbine` by ID",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "In the previous lesson, you retrieved the turbine ID from the page parameters. Now, fetch the corresponding turbine details from the backend. We’ll make a fetch call that returns a single `WindTurbine` record based on its ID.\n\nYou'll use the `fetchTurbineById` function defined in <a href='../../ui/c3/src/components/CRUDMethods/WindTurbineCRUD.ts'><code>ui/c3/src/components/CRUDMethods/WindTurbineCRUD.ts</code></a>.\n\nStart by navigating to <a href='../../ui/c3/src/customInstances/WindTurbine.SpecificPage.tsx'><code>WindTurbine.SpecificPage.tsx</code></a>, then add the following imports:",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 2,
+            "languageId": "typescriptreact",
+            "value": "/*\n    WindTurbine.SpecificPage.tsx\n*/\n\n// Other import statements in the project\n// ...\nimport { fetchTurbineById } from '@c3/app/ui/src/components/CRUDMethods/WindTurbineCRUD';\nimport { useEffect } from 'react';\n\n// const WindTurbineSpecificPage: React.FC = () => {\n//     ...\n// }",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "Next, call `fetchTurbineById` using a `useEffect` hook to fetch the turbine data when the page loads. `useEffect` will:\n- Call the `fetchTurbineById` function with the `turbineIdFromState` variable.\n- Receive the `turbineData` from the request.\n- Print the returned turbine data to the console.\n\nCopy and paste the following `useEffect` into your component:",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 2,
+            "languageId": "typescriptreact",
+            "value": "/*\n  WindTurbine.SpecificPage.tsx\n*/\n\n// const WindTurbineSpecificPage: React.FC = () => {\n//    ...\n//    const turbineIdFromState = useSelectedState(turbineDataSelector, (prev: any, next: any) => prev === next);\n//\n      useEffect(() => {\n        const fetchData = async () => {\n          try {\n            if (turbineIdFromState) {\n              // Fetch turbine data using CRUD method\n              const turbineData = await fetchTurbineById(turbineIdFromState);\n              if (turbineData) {\n                console.log('Fetched Turbine Data:', turbineData);\n              }\n            }\n          } catch (error) {\n            console.error('Error fetching data:', error);\n          }\n        };\n\n        fetchData();\n      }, [turbineIdFromState]);\n//\n//    ...\n// }",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "### Checkpoint: Verify your work ",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "Refresh the page. The turbine data should automatically log to the browser console.",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "----",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "## Part 2: Save the fetched `WindTurbine` to state ",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "Now that the turbine data is logging to the console, save it to a state variable for use in the component.\n\nFirst, import `useState` into <a href='../../ui/c3/src/customInstances/WindTurbine.SpecificPage.tsx'><code>WindTurbine.SpecificPage.tsx</code></a>:",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 2,
+            "languageId": "typescriptreact",
+            "value": "/*\n  WindTurbine.SpecificPage.tsx\n*/\n\n// Other import statements in the project\n// ...\nimport { useState } from 'react';",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "Copy and paste the following code snippet to create the `turbineData` state:",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 2,
+            "languageId": "typescriptreact",
+            "value": "/*\n  WindTurbine.SpecificPage.tsx\n*/\n\n// const WindTurbineSpecificPage: React.FC = () => {\n//    ...\n      const [turbineData, setTurbineData] = useState({});\n//\n//    useEffect(() => {\n//          const fetchData = async () => {\n//              ...\n//          }; \n//          ...\n//    }, [turbineIdFromState]);  \n//\n//    ...\n// }",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "Next, call the `setTurbineData()` method to save the data returned from `fetchTurbineById`.",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 2,
+            "languageId": "typescriptreact",
+            "value": "/*\n  WindTurbine.SpecificPage.tsx\n*/\n\n// const WindTurbineSpecificPage: React.FC = () => {\n//    ...\n//    const turbineIdFromState = useSelectedState(turbineDataSelector, (prev: any, next: any) => prev === next);\n//\n//    useEffect(() => {\n//      const fetchData = async () => {\n//        try {\n//          if (turbineIdFromState) {\n//            // Fetch turbine data using CRUD method\n//            const turbineData = await fetchTurbineById(turbineIdFromState);\n//            if (turbineData) {\n//              console.log('Fetched Turbine Data:', turbineData);\n                setTurbineData(turbineData); // Save fetched data to state\n//            }\n//          }\n//        } catch (error) {\n//          console.error('Error fetching data:', error);\n//        }\n//      };\n\n//      fetchData();\n//    }, [turbineIdFromState]);\n//\n//    ...\n// }",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "-----",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "## Part 3: Build the `WindTurbine.SpecificPage` using reusable components",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "Now that you have the turbine data in state, you'll build the dashboard page using three reusable components from the `ui/c3/src/components` directory:\n\n- <a href='../../ui/c3/src/components/WindTurbineHeader.tsx'>WindTurbineHeader.tsx</a>: Displays the turbine ID and status (Active/Inactive) at the top of the page\n\n- <a href='../../ui/c3/src/components/ModernMetricCard.tsx'>ModernMetricCard.tsx</a>: Four cards displaying power output, wind speed, temperature, and efficiency\n\n- <a href='../../ui/c3/src/components/TurbineDetailsTab.tsx'>TurbineDetailsTab.tsx</a>: Displays turbine metadata in a structured tab format",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "First, import the necessary Material UI components and three custom components you'll use:\n",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 2,
+            "languageId": "typescriptreact",
+            "value": "/*\n    WindTurbine.SpecificPage.tsx\n*/\n\n// Other import statements in the project\nimport { Grid, Box, Paper, Container } from '@mui/material';\nimport { Speed, Thermostat, ElectricBolt, Analytics } from '@mui/icons-material';\n\nimport WindTurbineHeader from '@c3/app/ui/src/components/WindTurbineHeader';\nimport ModernMetricCard from '@c3/app/ui/src/components/ModernMetricCard';\nimport TurbineDetailsTab from '@c3/app/ui/src/components/TurbineDetailsTab';\n\n// const WindTurbineSpecificPage = () => {\n//     ...\n// }",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "Next, replace your component's `return` statement with the following structure. Notice how each component receives `turbineData` as a prop:",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 2,
+            "languageId": "typescriptreact",
+            "value": "/*\n  WindTurbine.SpecificPage.tsx\n*/\n\n//  const WindTurbineSpecificPage = () => {\n//    ...\n      return (\n        <>\n          <Box sx={{ minHeight: '100vh', background: 'white', position: 'relative' }}>\n            <Container maxWidth=\"xl\" sx={{ pt: 4, pb: 4, position: 'relative', zIndex: 1 }}>\n              \n              {/* 1. Header: Shows turbine ID and status */}\n              <Box sx={{ mb: 2 }}>\n                <WindTurbineHeader turbineData={turbineData} />\n              </Box>\n\n              {/* 2. Metric Cards: Display key performance indicators */}\n              <Grid container spacing={1} sx={{ mb: 1 }}>\n                <Grid item xs={12} sm={6} md={3}>\n                  <ModernMetricCard\n                    icon={<ElectricBolt />}\n                    title=\"Power Output\"\n                    value={turbineData.powerData}\n                    unit=\" MW\"\n                    colorKey=\"primary\"\n                    field=\"powerData\"\n                  />\n                </Grid>\n                <Grid item xs={12} sm={6} md={3}>\n                  <ModernMetricCard\n                    icon={<Speed />}\n                    title=\"Average Wind Speed\"\n                    value={turbineData.windSpeed}\n                    unit=\" m/s\"\n                    colorKey=\"secondary\"\n                    field=\"windSpeed\"\n                  />\n                </Grid>\n                <Grid item xs={12} sm={6} md={3}>\n                  <ModernMetricCard\n                    icon={<Thermostat />}\n                    title=\"Average Temperature\"\n                    value={turbineData.temperature}\n                    unit=\"°C\"\n                    colorKey=\"tertiary\"\n                    field=\"temperature\"\n                  />\n                </Grid>\n                <Grid item xs={12} sm={6} md={3}>\n                  <ModernMetricCard\n                    icon={<Analytics />}\n                    title=\"Average Efficiency\"\n                    value={turbineData.efficiency}\n                    unit=\"%\"\n                    colorKey=\"quaternary\"\n                    field=\"efficiency\"\n                  />\n                </Grid>\n              </Grid>\n\n              {/* 3. Details Tab: Shows metadata and additional information */}\n              <Paper className=\"wt-tabs-paper\">\n                <TurbineDetailsTab turbineData={turbineData} />\n              </Paper>\n\n            </Container>\n          </Box>\n        </>\n      );\n// }",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "### Checkpoint: Verify your work",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "Navigate to the turbine-specific page for a `WindTurbine`. The page should look something like the following:",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "<img src=\"../../src/doc/img/lesson-10/specific-page.png\" width=\"750px\" style=\"display: block; margin-left: auto; margin-right: auto;\">",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "-----",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "### Summary\nYou assembled a turbine dashboard using reusable components, fetching and rendering metrics and details for the selected turbine.",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "<div style=\"display:flex; justify-content:space-between; gap:16px; margin-top:24px; align-items:center; width:100%;\">\n  <a href=\"./09-route-and-page-params.c3nb\"\n     aria-label=\"Go to Lesson 9: Page Redirects and Dynamic Params\"\n     style=\"justify-self:start; display:inline-flex; align-items:center; justify-content:center; padding:10px 16px; border-radius:10px; text-decoration:none; font-weight:600; border:1px solid #d0d7de; background:#f6f8fa; color:#0b1026; box-shadow:0 1px 2px rgba(0,0,0,0.06); transition:transform .15s ease, box-shadow .15s ease;\">\n    ← Previous: Page Redirects and Dynamic Params\n  </a>\n\n  <a href=\"./11-work-order-crud.c3nb\"\n     aria-label=\"Go to Lesson 11: Add CRUD Operations for WorkOrders\"\n     style=\"display:inline-flex; align-items:center; justify-content:center; padding:10px 16px; border-radius:10px; text-decoration:none; font-weight:600; border:1px solid #1f6feb; background:#1f6feb; color:#ffffff; box-shadow:0 1px 2px rgba(0,0,0,0.06); transition:transform .15s ease, box-shadow .15s ease;\">\n    Next: Add CRUD Operations for WorkOrders →\n  </a>\n</div>",
+            "output": [],
+            "executionSummary": {}
+        }
+    ],
+    "metadata": {
+        "id": "e3b6dc03-4734-4c80-9ee5-785cebd440a4",
+        "serializerVersion": "1",
+        "runtime": "js-rhino",
+        "appName": "c3"
+    }
+}

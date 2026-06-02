@@ -1,0 +1,13 @@
+/**
+ * SensorMeasurementSeries.c3typ
+ *
+ * One named time series from a sensor (e.g. "Oil Temperature" in °C); defines series metadata and links to its sensor.
+ */
+
+entity type SensorMeasurementSeries mixes TimedDataHeader<SensorMeasurement> {
+    name: string enum("Fan Rotation Speed", "Oil Pressure", "Oil Temperature", "Vibration")
+    
+    unit: string enum("rpm", "bar", "°C", "mm/s")
+    
+    sensor: AircraftSensor
+}

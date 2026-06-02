@@ -1,0 +1,13 @@
+/**
+ * Fill in type description here.
+ */
+entity type Apartment schema name "APARTMENT" {
+
+  /**
+   * The building this apartment is in
+   */
+  building: !Building
+
+  fixtures: [Fixture](apartment)
+
+}

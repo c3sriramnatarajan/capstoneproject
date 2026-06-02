@@ -1,0 +1,22 @@
+data = {
+  name: 'SourceSmartBulbMeasurement-SmartBulbMeasurement',
+  target: 'SmartBulbMeasurement',
+  source: 'SourceSmartBulbMeasurement',
+  projection: {
+    parent: { id: concat('SBMS_serialNo_', SN) },
+
+    start: timestamp,
+
+    end: end,
+
+    status: Status,
+
+    power: Watts,
+
+    lumens: Lumens,
+
+    voltage: Voltage,
+
+    temperature: Temp,
+  },
+};

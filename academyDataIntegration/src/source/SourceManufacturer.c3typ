@@ -1,0 +1,10 @@
+type SourceManufacturer mixes Source { 
+
+    @ser(name="manufacturer id")
+    manufacturerId: string
+
+
+    @ser(name="manufacturer name")
+    manufacturerName: string
+
+}

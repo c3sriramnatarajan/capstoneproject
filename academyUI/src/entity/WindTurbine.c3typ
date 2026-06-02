@@ -1,0 +1,31 @@
+entity type WindTurbine {
+    
+    id: string
+
+    powerData: double
+
+    workOrders: [WorkOrder]
+
+    latitude: double
+
+    longitude: double
+
+    country: string
+
+    manufacturer: string
+
+    windSpeed: double
+
+    buildDate: datetime
+
+    temperature: double
+
+    efficiency: double
+
+    installationDate: datetime
+
+    active: boolean
+
+
+    dataGenerator: function(): string py-server
+}

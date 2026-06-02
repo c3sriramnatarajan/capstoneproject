@@ -1,0 +1,25 @@
+/**
+* An event associated with a specific {@link WindTurbine}.
+*/
+
+entity type WindTurbineEvent {
+    /**
+    * The event code to identify what event took place
+    */
+    eventCode: string
+
+    /**
+    * The WindTurbine associated with the event
+    */
+    asset: WindTurbine
+
+    /**
+    * The start time of the event
+    */
+    start: datetime
+
+    /**
+    * The end time of the event
+    */
+    end: datetime
+}

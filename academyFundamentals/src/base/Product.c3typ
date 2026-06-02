@@ -1,0 +1,13 @@
+entity type Product {
+
+    /** 
+     * The full address of the store.
+     */
+    
+    name: string 
+    description: string 
+    category: string 
+    unitPrice: float
+    sales: [LineItem](product)
+
+} 

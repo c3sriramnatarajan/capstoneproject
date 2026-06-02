@@ -1,0 +1,19 @@
+/**
+ * WorkOrder.c3typ
+ *
+ * Tracks maintenance tasks raised from alerts, including priority, status, and schedule.
+ */
+
+entity type WorkOrder {
+  aircraft: Aircraft
+
+  description: string
+
+  priority: string enum("HIGH", "MEDIUM", "LOW")
+
+  status: string enum("OPEN", "IN PROGRESS", "CLOSED")
+
+  createdDate: datetime
+
+  dueDate: datetime
+}

@@ -1,0 +1,7 @@
+{
+    "name": "WindTurbineSourceCollection",
+    "source": "SourceWindTurbine",
+    "sourceSystem": {
+        "name": "Canonical"
+    }
+}

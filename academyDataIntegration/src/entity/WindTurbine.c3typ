@@ -1,0 +1,35 @@
+/**
+ * A representation of a WindTurbine entity.
+ */
+
+entity type WindTurbine {
+    /**
+     * The WindTurbine ID
+     */
+    id: string
+
+    /**
+     * The power in Watts of the WindTurbine
+     */
+    power: int
+
+    /**
+     * The latitude
+     */
+    latitude: double
+
+    /**
+     * The longitude
+     */
+    longitude: double
+
+    /**
+     * The {@link Manufacturer} of the WindTurbine
+     */
+    manufacturer: Manufacturer
+
+    /**
+     * The collection of {@link WindTurbineEvent}s associated
+     */
+    turbineEvents: [WindTurbineEvent](asset)
+}

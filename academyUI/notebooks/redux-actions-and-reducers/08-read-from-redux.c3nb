@@ -1,0 +1,220 @@
+{
+    "cells": [
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "# Lesson 8: Read from Redux ",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "In this lesson, we’ll focus on reading data from the Redux store. Specifically, we’ll access the `selectedIds` variable from the `turbines` state slice in Redux and use it to filter the displayed `WindTurbine`s.\n\nOnce we read this data, we'll update the map to render only the turbines that have been selected in the filter, ensuring the map accurately reflects the filter state.",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "### Learning Objectives",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "After completing this lesson, you will be able to read variables from the Redux store.",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "### Estimated Time",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "This lesson will take approximately **15 minutes** to complete.",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "### Lab Support",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "For support, check out the <a href=\"https://learn.c3.ai/page/help-center\" target=\"_blank\">Help Center</a> for information.",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "---",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "## Part 1: Set up local state and read the Redux state slice",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "We will set up local state for the turbines to display and also subscribe this component to the Redux `turbines` slice.\n\nFirst declare the local state for the list of turbines that should be shown on the map. Copy and paste the following code snippet into <a href=\"../../ui/c3/src/customInstances/WindTurbine.HomePage.tsx\"><code>WindTurbine.HomePage.tsx</code></a>:",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 2,
+            "languageId": "typescriptreact",
+            "value": "// const WindTurbineHomePage: React.FC = () => {\n//  const [turbines, setTurbines] = useState<WindTurbine[]>();\n      \n    const [filteredTurbines, setFilteredTurbines] = useState<WindTurbine[]>([]);\n\n//  ...\n// }",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "Next, we need to have the page subscribe to the `turbines` slice, which contains the `selectedIds`. Whenever the slice changes, this page should refresh.\n\nAdd the following import to <a href=\"../../ui/c3/src/customInstances/WindTurbine.HomePage.tsx\"><code>WindTurbine.HomePage.tsx</code></a>:",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 2,
+            "languageId": "typescriptreact",
+            "value": "// ... Other import statements in the project\nimport { useSelectedState } from '@c3/ui/UiSdlUseData';\n\n// const WindTurbineHomePage: React.FC = () => {\n//    ...\n// }",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "Add the following line to <a href=\"../../ui/c3/src/customInstances/WindTurbine.HomePage.tsx\"><code>WindTurbine.HomePage.tsx</code></a>. Now, the homepage is connected to the same `turbines` slice that is updated by `WindTurbineFilter` whenever a user picks turbines.",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 2,
+            "languageId": "typescriptreact",
+            "value": "// const WindTurbineHomePage: React.FC = () => {\n//    ...\n//    \n//    const [filteredTurbines, setFilteredTurbines] = useState<WindTurbine[]>([]);\n//    \n      const turbinesState = useSelectedState((state) => state.get('turbines'));\n//\n//    ...\n// }",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "---",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "## Part 2: Filter selected `WindTurbine`s",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "Now that we’ve successfully read the turbines from Redux, we need to update the map whenever the `selectedIds` state changes.\n\nWe will add a `useEffect` hook that runs whenever `selectedIds` updates. \n\n- If there's no selection, then all turbines should be present on the map.\n- If there is a selection, then filter the `turbines` (the local state variable that contains the entire list of turbines in the application) to only the IDs in `turbinesState.selectedIds`.  \n\nThis essentially contains the logic that returns the all turbines or the current Redux selection into a single list that the map displays.\n\nCopy and paste the snippet into <a href=\"../../ui/c3/src/customInstances/WindTurbine.HomePage.tsx\"><code>WindTurbine.HomePage.tsx</code></a>:",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 2,
+            "languageId": "typescriptreact",
+            "value": "// const WindTurbineHomePage: React.FC = () => {\n//    ...\n//\n    useEffect(() => {\n        if (!turbinesState?.selectedIds?.length) {\n        setFilteredTurbines(turbines);\n        return;\n        }\n        const filtered = turbines.filter((turbine) => turbinesState.selectedIds.includes(turbine.id));\n        setFilteredTurbines(filtered);\n    }, [turbines, turbinesState]);\n//\n//    return (...)\n// }",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "---",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "## Part 3: Display the Filtered `WindTurbine`s\nFinally, update the map to render only the selected `WindTurbine`s.\n\nIn the `WindTurbineHomePage` component's return statement, replace `turbines` with the following conditional expression:",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 2,
+            "languageId": "typescriptreact",
+            "value": "// const WindTurbineHomePage: React.FC = () => {\n//\n//    ...\n//\n//    return (\n//      <>\n//          <AppState />\n//          <MapContainer>\n//              <ZoomControl />\n//              <WindTurbineFilter />\n//              <TileLayer />\n                {(filteredTurbines.length > 0 ? filteredTurbines : turbines).map((turbine) => (\n//                  ...\n//              ))}\n//          </MapContainer>\n//      </>\n//   );\n// }",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "---",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "## Part 4: Verify Changes in the UI\n\n**Steps**:\n1. If the UI bundler is not running, then start it.\n2. Open the bundled UI.\n3. Select multiple turbines using the `WindTurbineFilter.tsx` component.\n4. Verify that only the selected `WindTurbine`s appear on the map.",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "The following images shows multiple turbines selected in the filter, with only those turbines displayed on the map:\n\n<img src=\"../../src/doc/img/lesson-8/filtering-map.png\" width=\"750px\" style=\"display: block; margin-left: auto; margin-right: auto;\">",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "-----",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "### Summary",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "You created a selector and used `useSelectedState` to read `selectedIds` from Redux, updating the map to show only the selected turbines.\n\n<style>\n    .c3-a-alert {\n      display: flex;\n      flex-direction: column;\n      align-items: flex-start;\n      padding: 16px 20px;\n      align-self: stretch;\n      border-radius: 8px;\n      border: 1px solid;\n      font-size: 14px;\n      font-style: normal;\n      font-weight: 400;\n      line-height: 150%;\n      margin-bottom: 20px;\n      width: auto;\n    }\n\n    .c3-a-alert-warning {\n      background-color: rgb(178,235,242);\n      border-color: rgb(0,96,100);\n      color: rgba(17, 17, 18, 0.95);\n    }\n</style>\n\n<div class=\"c3-a-alert c3-a-alert-warning\">\n    <p>Congratulations! You completed the hands-on lessons in the Manage State with Redux in C3 AI Applications course. <strong style=\"font-weight: 700;\">Remember to complete the <a href=\"https://learn.c3.ai/manage-state-with-redux-in-c3-ai-applications/418000\" style=\"color: blue;\">quiz</a> before continuing to the next course in the learning path.</strong></p>\n</div>",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "<div style=\"display:flex; justify-content:space-between; gap:16px; margin-top:24px; align-items:center; width:100%;\">\n  <a href=\"./07-write-to-redux.c3nb\"\n     aria-label=\"Go to Lesson 6: Write to Redux\"\n     style=\"display:inline-flex; align-items:center; justify-content:center; padding:10px 16px; border-radius:10px; text-decoration:none; font-weight:600; border:1px solid #d0d7de; background:#f6f8fa; color:#0b1026; box-shadow:0 1px 2px rgba(0,0,0,0.06); transition:transform .15s ease, box-shadow .15s ease;\">\n    ← Previous: Write to Redux\n  </a>\n  <a href=\"../CRUD-operations/09-route-and-page-params.c3nb\"\n     aria-label=\"Go to Lesson 8: Route and Page Params\"\n     style=\"display:inline-flex; align-items:center; justify-content:center; padding:10px 16px; border-radius:10px; text-decoration:none; font-weight:600; border:1px solid #1f6feb; background:#1f6feb; color:#ffffff; box-shadow:0 1px 2px rgba(0,0,0,0.06); transition:transform .15s ease, box-shadow .15s ease;\">\n    Next: Page Redirects and Dynamic Params →\n  </a>\n</div>",
+            "output": [],
+            "executionSummary": {}
+        }
+    ],
+    "metadata": {
+        "id": "58e3f200-fb91-4c9a-b95a-0066bb2d3174",
+        "serializerVersion": "1",
+        "runtime": "js-rhino",
+        "appName": "academyui"
+    }
+}

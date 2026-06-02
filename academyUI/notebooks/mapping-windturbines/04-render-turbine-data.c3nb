@@ -1,0 +1,211 @@
+{
+  "cells": [
+    {
+      "kind": 1,
+      "languageId": "markdown",
+      "value": "# Lesson 4: Render Turbine Data ",
+      "output": [],
+      "executionSummary": {}
+    },
+    {
+      "kind": 1,
+      "languageId": "markdown",
+      "value": "Now that you have retrieved WindTurbine data, you will display turbine locations on the map. You will save `WindTurbine` data to the component state, then use that state to render markers on the map.",
+      "output": [],
+      "executionSummary": {}
+    },
+    { "kind": 1, "languageId": "markdown", "value": "### Learning Objectives", "output": [], "executionSummary": {} },
+    {
+      "kind": 1,
+      "languageId": "markdown",
+      "value": "After completing this lesson, you will be able to:\n- Store data in a state variable.\n- Render turbine markers on the map.",
+      "output": [],
+      "executionSummary": {}
+    },
+    { "kind": 1, "languageId": "markdown", "value": "### Estimated time", "output": [], "executionSummary": {} },
+    {
+      "kind": 1,
+      "languageId": "markdown",
+      "value": "This lesson will take approximately **15 minutes** to complete.",
+      "output": [],
+      "executionSummary": {}
+    },
+    { "kind": 1, "languageId": "markdown", "value": "### Lab Support", "output": [], "executionSummary": {} },
+    {
+      "kind": 1,
+      "languageId": "markdown",
+      "value": "For support, check out the <a href=\"https://learn.c3.ai/page/help-center\" target=\"_blank\">Help Center</a> information.",
+      "output": [],
+      "executionSummary": {}
+    },
+    { "kind": 1, "languageId": "markdown", "value": "------", "output": [], "executionSummary": {} },
+    {
+      "kind": 1,
+      "languageId": "markdown",
+      "value": "## Part 1: Store `WindTurbine` data in state",
+      "output": [],
+      "executionSummary": {}
+    },
+    {
+      "kind": 1,
+      "languageId": "markdown",
+      "value": "In <a href=\"../../ui/c3/src/customInstances/WindTurbine.HomePage.tsx\"><code>WindTurbine.HomePage.tsx</code></a>, import `useState` from React. This allows us to save the turbines to state variables.",
+      "output": [],
+      "executionSummary": {}
+    },
+    {
+      "kind": 2,
+      "languageId": "typescriptreact",
+      "value": "/*\n  WindTurbine.HomePage.tsx\n*/\n// import React from 'react';\n// ...\n// import { useEffect } from 'react';\nimport { useState } from 'react';",
+      "output": [],
+      "executionSummary": {}
+    },
+    {
+      "kind": 1,
+      "languageId": "markdown",
+      "value": "Use the `useState` hook to declare the state variable, `turbines`, to save the turbines to state.\n\nDeclare it at the top of <a href=\"../../ui/c3/src/customInstances/WindTurbine.HomePage.tsx\"><code>WindTurbine.HomePage.tsx</code></a>, like in the following code cell:",
+      "output": [],
+      "executionSummary": {}
+    },
+    {
+      "kind": 2,
+      "languageId": "typescriptreact",
+      "value": "/*\n  WindTurbine.HomePage.tsx\n*/\n\n// const WindTurbineHomePage = () => {\n\n    const [turbines, setTurbines] = useState([]);\n\n  // useEffect(() => {\n  //   const loadTurbines = async () => {\n  //   ...",
+      "output": [],
+      "executionSummary": {}
+    },
+    { "kind": 1, "languageId": "markdown", "value": "------", "output": [], "executionSummary": {} },
+    {
+      "kind": 1,
+      "languageId": "markdown",
+      "value": "## Part 2: Save Turbines to State",
+      "output": [],
+      "executionSummary": {}
+    },
+    {
+      "kind": 1,
+      "languageId": "markdown",
+      "value": "Let's save the WindTurbines stored in `turbineData` to the state using the `setTurbines` function. That way, we can re-render the component with the fetched data and display them with markers.\n\nInside the `try` block of the `loadTurbines` function, add the following line to save the fetched data to state:",
+      "output": [],
+      "executionSummary": {}
+    },
+    {
+      "kind": 2,
+      "languageId": "typescriptreact",
+      "value": "/*\n  WindTurbine.HomePage.tsx\n*/\n\n// useEffect(() => {\n//   // Fetch wind turbine data using CRUD method\n//   const loadTurbines = async () => {\n//     try {\n//       const turbineData = await fetchAllTurbines();\n//       console.log('Success:', turbineData);\n         setTurbines(turbineData); // Store the fetched data in state\n\n//     } catch (error) {\n//       console.error('Error fetching wind turbine data:', error);\n//     } \n//   };\n//   loadTurbines();\n// }, []);",
+      "output": [],
+      "executionSummary": {}
+    },
+    { "kind": 1, "languageId": "markdown", "value": "------", "output": [], "executionSummary": {} },
+    {
+      "kind": 1,
+      "languageId": "markdown",
+      "value": "## Part 3: Render Turbine Markers",
+      "output": [],
+      "executionSummary": {}
+    },
+    {
+      "kind": 1,
+      "languageId": "markdown",
+      "value": "Now that the turbine data is saved to state, we can plot these turbines on the map.\n\nAdd the following import statements to <a href=\"../../ui/c3/src/customInstances/WindTurbine.HomePage.tsx\"><code>WindTurbine.HomePage.tsx</code></a>:",
+      "output": [],
+      "executionSummary": {}
+    },
+    {
+      "kind": 2,
+      "languageId": "typescriptreact",
+      "value": "/*\n  WindTurbine.HomePage.tsx\n*/\n\n// import React from 'react';\n// ...\n// import { useState } from 'react';\nimport { windTurbineIcon } from '@c3/app/ui/src/components/icons/MapIcons'; // Import the wind turbine icon\nimport { Marker } from 'react-leaflet'; // Import the Marker component from react-leaflet",
+      "output": [],
+      "executionSummary": {}
+    },
+    {
+      "kind": 1,
+      "languageId": "markdown",
+      "value": "Replace the existing <MapContainer> component with the following code snippet.\n\nFor each WindTurbine object in `turbines`, the new code creates a `<Marker>` at each turbine's geographic coordinates.",
+      "output": [],
+      "executionSummary": {}
+    },
+    {
+      "kind": 2,
+      "languageId": "typescriptreact",
+      "value": "/*\n  WindTurbine.HomePage.tsx\n*/\n\n// ...\n\n//return (\n// <>\n  // <MapContainer \n  //   center={[39.8, -98.5]} \n  //   zoom={4} \n  //   className=\"map-container\" \n  //   zoomControl={false}\n  //   {...{} as any}>\n  //   <ZoomControl position=\"bottomleft\" />\n\n    // {/* OpenStreetMap Tile Layer */}\n    // <TileLayer\n    //     url=\"https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png\"\n    //     attribution='&copy; <a href=\"https://www.openstreetmap.org/copyright\">OpenStreetMap</a> contributors &copy; <a href=\"https://carto.com/attributions\">CARTO</a>'\n    //       {...{} as any}\n    // />\n\n    {/* Wind Turbine Markers */}\n    {(turbines).map((turbine) => ( // Render markers for each turbine\n      <Marker  \n        key={turbine.id} \n        position={[turbine.latitude, turbine.longitude]} \n        icon={windTurbineIcon}\n        {...{} as any}> {/* This avoids the prop warning for using an older version of React */ }\n      </Marker>\n    ))}\n  // </MapContainer>\n  // </>\n// );",
+      "output": [],
+      "executionSummary": {}
+    },
+    { "kind": 1, "languageId": "markdown", "value": "### Verify result", "output": [], "executionSummary": {} },
+    {
+      "kind": 1,
+      "languageId": "markdown",
+      "value": "Refresh your bundled UI and verify that the turbine markers appear on the map.",
+      "output": [],
+      "executionSummary": {}
+    },
+    {
+      "kind": 1,
+      "languageId": "markdown",
+      "value": "<img src=\"../../src/doc/img/lesson-4/markers.png\" width=\"800px\" style=\"display: block; margin-left: auto; margin-right: auto;\">",
+      "output": [],
+      "executionSummary": {}
+    },
+    { "kind": 1, "languageId": "markdown", "value": "------", "output": [], "executionSummary": {} },
+    {
+      "kind": 1,
+      "languageId": "markdown",
+      "value": "## Part 4: Add a pop up window ",
+      "output": [],
+      "executionSummary": {}
+    },
+    {
+      "kind": 1,
+      "languageId": "markdown",
+      "value": "We'll add a pop up window to each marker to display additional information about the WindTurbine. We use the `WindTurbinePopup` component defined in <a href='../../ui/c3/src/components/WindTurbinePopup.tsx'>academyUI/ui/c3/src/components/WindTurbinePopup.tsx</a>.\n\nAdd the following import statement to <a href=\"../../ui/c3/src/customInstances/WindTurbine.HomePage.tsx\"><code>WindTurbine.HomePage.tsx</code></a>:",
+      "output": [],
+      "executionSummary": {}
+    },
+    {
+      "kind": 2,
+      "languageId": "typescriptreact",
+      "value": "/*\n  WindTurbine.HomePage.tsx\n*/\n// Other imports ...\nimport WindTurbinePopup from '@c3/app/ui/src/components/WindTurbinePopup';",
+      "output": [],
+      "executionSummary": {}
+    },
+    {
+      "kind": 1,
+      "languageId": "markdown",
+      "value": "To populate `WindTurbinePopup`, we pass in the WindTurbine object as a prop as we loop through the list of turbines.\n\nAdd the `<WindTurbinePopup>` component to the markers, like in the following cell:",
+      "output": [],
+      "executionSummary": {}
+    },
+    {
+      "kind": 2,
+      "languageId": "typescriptreact",
+      "value": "/*\n  WindTurbine.HomePage.tsx\n*/\n\n//return (\n// <>\n//   ...\n//  {/* Wind Turbine Markers */}\n//  {(turbines).map((turbine) => (\n//    <Marker \n//      key={turbine.id} \n//      position={[turbine.latitude, turbine.longitude]} \n//      icon={windTurbineIcon}\n//      {...{} as any}>\n          <WindTurbinePopup turbine={turbine} />\n//  </Marker>\n// ))}",
+      "output": [],
+      "executionSummary": {}
+    },
+    { "kind": 1, "languageId": "markdown", "value": "### Verify result", "output": [], "executionSummary": {} },
+    {
+      "kind": 1,
+      "languageId": "markdown",
+      "value": "Refresh your UI. When you click on a marker on the map, you should see a popup window with the turbine details.\n\n<img src=\"../../src/doc/img/lesson-4/popup.png\" width=\"800px\" style=\"display: block; margin-left: auto; margin-right: auto;\">",
+      "output": [],
+      "executionSummary": {}
+    },
+    { "kind": 1, "languageId": "markdown", "value": "-----", "output": [], "executionSummary": {} },
+    {
+      "kind": 1,
+      "languageId": "markdown",
+      "value": "### Summary\nYou saved fetched turbines to React state and plotted markers with popups on the map, establishing the visual representation of turbine data.\n\n<style>\n    .c3-a-alert {\n      display: flex;\n      flex-direction: column;\n      align-items: flex-start;\n      padding: 16px 20px;\n      align-self: stretch;\n      border-radius: 8px;\n      border: 1px solid;\n      font-size: 14px;\n      font-style: normal;\n      font-weight: 400;\n      line-height: 150%;\n      margin-bottom: 20px;\n      width: auto;\n    }\n\n    .c3-a-alert-warning {\n      background-color: rgb(178,235,242);\n      border-color: rgb(0,96,100);\n      color: rgba(17, 17, 18, 0.95);\n    }\n</style>\n\n<div class=\"c3-a-alert c3-a-alert-warning\">\n    <p>Congratulations! You completed the hands-on lessons in the UI Framework Fundamentals course. <strong style=\"font-weight: 700;\">Remember to complete the <a href=\"https://learn.c3.ai/ui-framework-fundamentals/410413\" style=\"color: blue;\">quiz</a> before continuing to the next course in the learning path.</strong></p>\n</div>",
+      "output": [],
+      "executionSummary": {}
+    },
+    {
+      "kind": 1,
+      "languageId": "markdown",
+      "value": "<div style=\"display:flex; justify-content:space-between; gap:16px; margin-top:24px; align-items:center; width:100%;\">\n  <a href=\"./03-fetch-turbine-data.c3nb\"\n     aria-label=\"Go to Lesson 2: Fetch Turbine Data\"\n     style=\"display:inline-flex; align-items:center; justify-content:center; padding:10px 16px; border-radius:10px; text-decoration:none; font-weight:600; border:1px solid #d0d7de; background:#f6f8fa; color:#0b1026; box-shadow:0 1px 2px rgba(0,0,0,0.06); transition:transform .15s ease, box-shadow .15s ease;\">\n    ← Previous: Fetch Turbine Data\n  </a>\n  <a href=\"../redux-actions-and-reducers/05-create-map-filter.c3nb\"\n     aria-label=\"Go to Lesson 4: Create Map Filter\"\n     style=\"display:inline-flex; align-items:center; justify-content:center; padding:10px 16px; border-radius:10px; text-decoration:none; font-weight:600; border:1px solid #1f6feb; background:#1f6feb; color:#ffffff; box-shadow:0 1px 2px rgba(0,0,0,0.06); transition:transform .15s ease, box-shadow .15s ease;\">\n    Next: Create Map Filter →\n  </a>\n</div>",
+      "output": [],
+      "executionSummary": {}
+    }
+  ],
+  "metadata": { "id": "786f4b07-a614-4dcb-b852-cdda18225cc6", "serializerVersion": "1" }
+}

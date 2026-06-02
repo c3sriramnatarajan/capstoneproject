@@ -1,0 +1,47 @@
+/** 
+* A single {@link SmartBulb}.
+*/
+entity type SmartBulb mixes FeatureEvaluatable schema name "SMARTBULB"{
+
+    /**
+     * The bulb type for this bulb.
+     */ 
+    bulbType: string enum("CFL", "LED", "INCAN")
+    
+    /**
+     * The light bulb's wattage.
+     */ 
+    wattage: !decimal
+    
+    /**
+     * The name of this bulb's manufacturer.
+     */  
+    manufacturer: !string enum("Bell", "GE", "Philips")
+    
+    /**
+     * The time at which this bulb was manufactured.
+     */ 
+    startDate: !datetime
+
+        /**
+    * The collection of {@link SmartBulbToFixtureRelation}s for this bulb
+    */
+    @db(order='descending(start)')
+    fixtureHistory: [SmartBulbToFixtureRelation](from)
+
+    /**
+    * The {@link Fixture} this bulb is currently in
+    */
+    currentFixture: Fixture stored calc fixtureHistory[0].(end == null).to 
+
+    bulbMeasurements: [SmartBulbMeasurementSeries](smartBulb, id)
+
+    // The lifespan of a {@link SmartBulb} from manufacture date to failure
+    lifeSpanInYears: member function(): double js-server
+
+    averageTemperatureMonth: member function(endDate: datetime): double js-server
+
+    averageLifeSpan: function(): double js-server 
+
+    shortestLifeSpan: function(): map<string, double> js-server
+}

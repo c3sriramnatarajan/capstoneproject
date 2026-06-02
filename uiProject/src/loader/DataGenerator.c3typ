@@ -1,0 +1,26 @@
+
+type DataGenerator mixes Singleton {
+  createAllData: function(): string py-server
+
+  clearAllData: function(): string py-server
+
+  validateDataLoad: function(): string py-server
+
+  createBaseData: function(): string py-server
+
+  createOperationData: function(): string py-server
+
+  createOperationAlertData: function(): string py-server
+
+  createAircraftData: function(): string py-server
+
+  createWorkOrderData: function(): string py-server
+
+  createMaintenanceRecordData: function(): string py-server
+
+  createAircraftSensorData: function(): string py-server
+
+  createSensorMeasurementSeriesData: function(): string py-server
+
+  createSensorMeasurementData: function(): string py-server
+}

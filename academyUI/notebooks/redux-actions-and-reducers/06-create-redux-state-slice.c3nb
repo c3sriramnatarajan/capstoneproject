@@ -1,0 +1,234 @@
+{
+    "cells": [
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "# Lesson 6: Create a Redux State Slice",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "In this lesson, we'll set up Redux state management for the `WindTurbineFilter.tsx` component. We'll create a state slice to manage the selected turbines in the filter.",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "### Learning Objectives",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "After completing this lesson, you will be able to:\n- Explain what a Redux state slice is.\n- Specify where state slices should be defined in a C3 application package.\n- Use the `createSlice` function to define a state slice and export the relevant pieces of the slice for use in other components.",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "### Estimated Time\n",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "This lesson will take approximately **15 minutes** to complete.",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "### Lab Support",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "For support, check out the <a href=\"https://learn.c3.ai/page/help-center\" target=\"_blank\">Help Center</a> for information.",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "---",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "## Part 1: Initialize the Slice",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "### Why use slices?",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "Slices keep state organized and scalable. Each slice lives in its own file, so different features don't step on each other. You get clear ownership (\"`turbines` state lives in the turbines slice\"), easier testing, and a single place to see the shape of that part of the store and how it can change.",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "### Get started ",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "We define the state slice in a dedicated file. In a C3 application, you define slices in the `ui/c3/src/slices/` folder. Create this folder, then create the  `turbines.ts` file. This file holds the slice's state shape, reducers, and actions.",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "### Define the state shape ",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "Before wiring up Redux Toolkit's `createSlice`, we add a TypeScript interface that describes the turbines slice of the Redux state. This type is the single source of truth for what data this slice holds (`selectedIds`) and makes the rest of the slice and the components that use it type-safe. \n\nCopy and paste the interface for the turbines slice in <a href=\"../../ui/c3/src/slices/turbines.ts\"><code>turbines.ts</code></a>.",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 2,
+            "languageId": "typescript",
+            "value": "/*\n  turbines.ts\n */\n\ninterface TurbinesState {\n    selectedIds: string[];\n}",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "---",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "## Part 2: Define the slice",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "Let's create the slice now. We'll import two functions from the Redux Toolkit.\n\n- `createSlice` is a Redux Toolkit helper that creates a slice of Redux state plus its reducers and action creators in one place. You pass a single config object and get back a slice object. \n- `PayloadAction` is a TypeScript type that types the `payload` of an action so your reducers stay type-safe when reading the action payload. \n\nAdd the following imports to <a href=\"../../ui/c3/src/slices/turbines.ts\"><code>turbines.ts</code></a>:",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 2,
+            "languageId": "typescript",
+            "value": "/*\n   turbines.ts\n */\n\nimport { createSlice, PayloadAction } from '@reduxjs/toolkit';\n\n// interface TurbinesState {\n//     ...",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "Now, it's time to define the slice. Add the following snippet to <a href=\"../../ui/c3/src/slices/turbines.ts\"><code>turbines.ts</code></a>.",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 2,
+            "languageId": "typescript",
+            "value": "/*\n  turbines.ts\n */\n\n// interface TurbinesState {\n//     ...\n\nexport const turbinesSlice = createSlice({\n  name: 'turbines',\n  initialState: { selectedIds: [] } as TurbinesState,\n  reducers: {\n    setSelectedTurbines: (state, action: PayloadAction<string[]>) => {\n      state.selectedIds = action.payload;\n    },\n  },\n});",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "Recall that the slice contains the reducers and actions in one place. The following table provides an overview of each property of the slice:\n\n| Property | Explanation |\n|----------|-------------|\n| `name: 'turbines'` | This slice is registered under the key `'turbines'` in the root Redux state. The state for this slice lives at `state.turbines` (or in your app, `state.get('turbines')`). |\n| `initialState` | The first time this slice runs, its state is `{ selectedIds: [] }`. The `as TurbinesState` tells TypeScript this object matches your `TurbinesState` interface so the rest of the slice is type-checked. |\n| `reducers` | An object of reducer functions. Each key is the action name; each value is a function that receives the current slice state and the action and returns the next slice state (or mutates `state` in place, which Redux Toolkit allows via Immer). |\n| `setSelectedTurbines` | A reducer. When an action with type `'turbines/setSelectedTurbines'` is dispatched, this function runs. It takes the current slice state and a `PayloadAction<string[]>`, then sets `state.selectedIds` to `action.payload` (the array of selected turbine IDs). Redux Toolkit uses Immer, so writing `state.selectedIds = action.payload` is safe and is turned into an immutable update. |",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "---",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "## Part 3: Add exports",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "With `turbinesSlice` defined, we can export the actions and reducers to use in our application.\n\nWe export two variables:\n\n- `setSelectedTurbines`: This is the **action creator** for updating selected turbine IDs in the filter component. We use it in the filter component so it can dispatch the action and change the slice state.\n- `turbinesSlice.reducer`: This is the reducer function that actually updates the `turbines` slice of the Redux state when actions are dispatched. \n\nAdd the following exports to  <a href=\"../../ui/c3/src/slices/turbines.ts\"><code>turbines.ts</code></a>:",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 2,
+            "languageId": "typescript",
+            "value": "/*\n  turbines.ts\n */\n\n// interface TurbinesState { ... }\n\n// export const turbinesSlice = createSlice({\n//    ...\n// });\n  \nexport const { setSelectedTurbines } = turbinesSlice.actions;\nexport default turbinesSlice.reducer;",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "-----",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "### Summary",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "You defined a Redux state slice in `turbines.ts` and defined the action and reducer used to update the selected turbines in the filter.",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "<div style=\"display:flex; justify-content:space-between; gap:16px; margin-top:24px; align-items:center; width:100%;\">\n  <a href=\"./05-create-map-filter.c3nb\"\n     aria-label=\"Go to Lesson 4: Create Map Filter\"\n     style=\"display:inline-flex; align-items:center; justify-content:center; padding:10px 16px; border-radius:10px; text-decoration:none; font-weight:600; border:1px solid #d0d7de; background:#f6f8fa; color:#0b1026; box-shadow:0 1px 2px rgba(0,0,0,0.06); transition:transform .15s ease, box-shadow .15s ease;\">\n    ← Previous: Create Map Filter\n  </a>\n  <a href=\"./07-write-to-redux.c3nb\"\n     aria-label=\"Go to Lesson 6: Write to Redux\"\n     style=\"display:inline-flex; align-items:center; justify-content:center; padding:10px 16px; border-radius:10px; text-decoration:none; font-weight:600; border:1px solid #1f6feb; background:#1f6feb; color:#ffffff; box-shadow:0 1px 2px rgba(0,0,0,0.06); transition:transform .15s ease, box-shadow .15s ease;\">\n    Next: Write to Redux →\n  </a>\n</div>",
+            "output": [],
+            "executionSummary": {}
+        }
+    ],
+    "metadata": {
+        "id": "c23f5fe1-dfca-4e3c-be91-5dabf122e074",
+        "serializerVersion": "1",
+        "runtime": "js-rhino",
+        "appName": "academyui"
+    }
+}

@@ -1,0 +1,14 @@
+/**
+ * Fill in type description here.
+ */
+entity type Building mixes FeatureEvaluatable schema name "BUILDING" {
+
+
+  /**
+   * Fill in field description here.
+   */
+  city: string
+  apartments: [Apartment](building)
+  latitude: !double
+  longitude: !double 
+}

@@ -1,0 +1,276 @@
+{
+    "cells": [
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "# Lesson 7: Write to Redux",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "In this lesson, you connect the `WindTurbineFilter` component to the Redux store; specifically, connecting it to the Redux state slice `turbines` that you created in the previous notebook. This enables us to read the selected turbines in the filter.",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "### Learning Objectives",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "After completing this lesson, you will be able to:\n- Connect a component to a Redux state slice.\n- Dispatch actions to write to the Redux store.",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "### Estimated Time",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "This lesson will take approximately **15 minutes** to complete.",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "\n### Lab Support\n",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "For support, check out the <a href=\"https://learn.c3.ai/page/help-center\" target=\"_blank\">Help Center</a> for information.",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "---",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "There are several common scenarios where using the Redux store is beneficial:\n- **Global State Management**: When components across different parts of the application need to share and react to the same data, such as authentication tokens or application settings.\n- **Consistent Data Flow**: By enforcing a single source of truth (the Redux store), developers ensure data is consistent and predictable across the application.\n- **Component Communication**: Sharing state across deeply nested or distant components can be difficult. The Redux store simplifies this process entirely.",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "## Part 1: Create the dispatch function",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "Now that `WindTurbineFilter.tsx` reads data from the Redux store through the state slice, we can write to Redux by dispatching actions.\n\nThe filter component needs to dispatch an action whenever a user selects or deselects a turbine from the dropdown.\n\nThe `useDispatch` hook is a hook that returns a `dispatch` method. This method sends actions to the Redux store, triggering reducers to update the state.\n\nFirst, import the `useDispatch` hook. Open <a href=\"../../ui/c3/src/components/WindTurbineFilter.tsx\"><code>WindTurbineFilter.tsx</code></a> and add the following import:",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 2,
+            "languageId": "typescriptreact",
+            "value": "/*\n    WindTurbineFilter.tsx\n*/\n\n// Other import statements in the project\nimport { useDispatch } from '@c3/ui/UiSdlUseDispatch';\n\n// const WindTurbineFilter: React.FC<WindTurbineFilterProps> = ({ turbines }) => {\n//      ...\n// }",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "Next, we need to call the `useDispatch` hook to create a `dispatch` function. This function sends actions to Redux and automatically adds framework metadata.\n\nAdd the following code snippet to `WindTurbineFilter.tsx` to create the `dispatch` function:",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 2,
+            "languageId": "typescriptreact",
+            "value": "/*\n    WindTurbineFilter.tsx\n*/\n\n// const WindTurbineFilter: React.FC<WindTurbineFilterProps> = ({ turbines }) => {\n\n        const dispatch = useDispatch();\n\n//      return ( ... );\n// };",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "---",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "## Part 2: Display turbines from the store",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "Next, we want to wire the component to the Redux store so it can show the current selection.\n\nFirst, import `useSelectedState` in <a href=\"../../ui/c3/src/components/WindTurbineFilter.tsx\"><code>WindTurbineFilter.tsx</code></a>. Also include imports from Material UI, which we'll use to add the dropdown selection in the filter component.",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 2,
+            "languageId": "typescriptreact",
+            "value": "/*\n    WindTurbineFilter.tsx\n*/\n\n// ... Other import statements in the project\nimport { useSelectedState } from '@c3/ui/UiSdlUseData';\nimport { MenuItem, Checkbox, ListItemText } from '@mui/material';\n\n// const WindTurbineFilter: React.FC<WindTurbineFilterProps> = ({ turbines }) => {\n//    ...\n// }",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "`useSelectedState` subscribes to the store and selects the `turbines` slice. From that slice, we take `selectedIds` (with a fallback to an empty array). Those IDs become the source of truth for which turbines are selected in the dropdown. ",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 2,
+            "languageId": "typescriptreact",
+            "value": "/*\n    WindTurbineFilter.tsx\n*/\n\n// const WindTurbineFilter: React.FC<WindTurbineFilterProps> = ({ turbines }) => {\n\n//      const dispatch = useDispatch();\n\n        const turbinesState = useSelectedState((state) => state.get('turbines'));\n        const selectedTurbines = turbinesState?.selectedIds ?? [];\n//\n//      ...\n// }",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "Update the `Select` component in the filter dropdown selection with the following code snippet.\n\nWe'll create `Checkbox` entries for each Turbine in the application, so that when a user selects a turbine ID from the dropdown, the ID should write to the Redux state.",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 2,
+            "languageId": "typescriptreact",
+            "value": "/*\n    WindTurbineFilter.tsx\n*/\n\n// const WindTurbineFilter: React.FC<WindTurbineFilterProps> = ({ turbines }) => {\n//\n//    ...\n//    const turbinesState = useSelectedState((state) => state.get('turbines'));\n//    const selectedTurbines = turbinesState?.selectedIds ?? [];\n//    \n//    return (    \n//        <>\n//         ...\n// \n//        <div className=\"filter-dropdown-section\">\n//          <label className=\"filter-label\">Select Wind Turbine:</label>\n            <Select\n                labelId=\"turbine-select-label\"\n                multiple\n                value={selectedTurbines}\n                renderValue={(selected) => selected.join(', ')}\n            >\n                {turbines.map((turbine) => (\n                    <MenuItem key={turbine.id} value={turbine.id}>\n                        <Checkbox checked={selectedTurbines.indexOf(turbine.id) > -1} />\n                        <ListItemText primary={turbine.id} />\n                    </MenuItem>\n                ))} \n            </Select>\n//      ...",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "---",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "## Part 3: Write changes to the store",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "Lastly, we need to write the changes to the store. We'll add a handler that uses `dispatch` to update the state when a user changes the selection.\n\nImport the action from the `turbines` slice into <a href=\"../../ui/c3/src/components/WindTurbineFilter.tsx\"><code>WindTurbineFilter.tsx</code></a>:",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 2,
+            "languageId": "typescriptreact",
+            "value": "/*\n    WindTurbineFilter.tsx\n*/\n\n// ... Other import statements in the project\nimport { setSelectedTurbines } from '@c3/app/ui/src/slices/turbines';",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "The following code snippet contains the change handler for `WindTurbineFilter`. When the user changes the selection in the dropdown, it runs and updates Redux with the new selection.\n\nSpecifically, the `setSelectedTurbines` action is dispatched to the Redux store, and then the `turbines` slice reducer runs and updates the `selectedIds`.",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 2,
+            "languageId": "javascript",
+            "value": "/*\n    WindTurbineFilter.tsx\n*/\n\n// const WindTurbineFilter: React.FC<WindTurbineFilterProps> = ({ turbines }) => {\n//      ...\n//      const selectedTurbines = turbinesState?.selectedIds ?? [];\n\n        const handleChange = (event: any) => {\n            const value = event.target.value;\n            // console.log('Selected Turbines:', value); // Uncomment this if you want to log the selected turbines\n            dispatch(setSelectedTurbines(value));\n        };\n\n//      return (...)",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "Lastly, we have to add an event handler to the `Select` component. Add it to `Select` in the component return:",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 2,
+            "languageId": "javascript",
+            "value": "/*\n    WindTurbineFilter.tsx\n*/\n\n// const WindTurbineFilter: React.FC<WindTurbineFilterProps> = ({ turbines }) => {\n//\n//    ...\n//    const turbinesState = useSelectedState((state) => state.get('turbines'));\n//    const selectedTurbines = turbinesState?.selectedIds ?? [];\n//    \n//    return (    \n//        <>\n//         ...\n\n//         <Select \n//            labelId=\"turbine-select-label\"\n//            multiple\n//            value={selectedTurbines} \n//            renderValue={(selected) => selected.join(', ')}\n              onChange={handleChange}\n//          >\n//            ...",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "---",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "## Part 4: Verify Changes in Redux",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "\n**Steps**:\n\n1. If the UI bundler is not running, then start it.\n2. Open the bundled UI in Google Chrome.\n3. Open Chrome DevTools:\n    - Mac: `Cmd + Option + I`\n    - Windows / Linux: `Ctrl + Shift + I` or `F12`\n4. Navigate to the Redux tab and select the `academyui` application from the dropdown. <img src=\"../../src/doc/img/lesson-7/select-application.png\" width=\"450px\" style=\"display: block;\">\n5. In your application UI, select a turbine from the filter dropdown. \n6. In the Redux DevTools, you should see actions being dispatched under the `turbines` namespace. You should see `setTurbinesState` actions start to populate.\n7. Select one of the actions.\n8. Open the `turbines` node.\n\nThe following image shows the state tree after selecting `WT-017` in the filter dropdown menu. You should expect your tree to look similar to the following:\n\n<img src=\"../../src/doc/img/lesson-7/state-tree.png\" width=\"750px\" style=\"display: block; margin-left: auto; margin-right: auto;\">\n",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "-----",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "### Summary",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "You connected `WindTurbineFilter` to Redux by adding `useDispatch` and `useSelectedState`, wiring the dropdown’s value to the store’s `selectedIds`, and dispatching `setSelectedTurbines` on change so selected turbines are written to the Redux store.",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "<div style=\"display:flex; justify-content:space-between; gap:16px; margin-top:24px; align-items:center; width:100%;\">\n  <a href=\"./06-create-redux-state-slice.c3nb\"\n     aria-label=\"Go to Lesson 6: Create a Redux State Slice\"\n     style=\"display:inline-flex; align-items:center; justify-content:center; padding:10px 16px; border-radius:10px; text-decoration:none; font-weight:600; border:1px solid #d0d7de; background:#f6f8fa; color:#0b1026; box-shadow:0 1px 2px rgba(0,0,0,0.06); transition:transform .15s ease, box-shadow .15s ease;\">\n    ← Previous: Create a Redux State Slice\n  </a>\n  <a href=\"./08-read-from-redux.c3nb\"\n     aria-label=\"Go to Lesson 8: Read from Redux\"\n     style=\"display:inline-flex; align-items:center; justify-content:center; padding:10px 16px; border-radius:10px; text-decoration:none; font-weight:600; border:1px solid #1f6feb; background:#1f6feb; color:#ffffff; box-shadow:0 1px 2px rgba(0,0,0,0.06); transition:transform .15s ease, box-shadow .15s ease;\">\n    Next: Read from Redux →\n  </a>\n</div>",
+            "output": [],
+            "executionSummary": {}
+        }
+    ],
+    "metadata": {
+        "id": "1c50dfcd-aa4f-4404-8f6a-9678434d10fb",
+        "serializerVersion": "1",
+        "runtime": "js-rhino",
+        "appName": "academyui"
+    }
+}

@@ -1,0 +1,23 @@
+/**
+ * MaintenanceRecord.c3typ
+ *
+ * Logs completed maintenance activity for an aircraft, linked back to the driving work order.
+ */
+
+entity type MaintenanceRecord {
+  aircraft: Aircraft
+
+  maintenanceType: string enum("SCHEDULED", "UNSCHEDULED", "EMERGENCY")
+
+  startDate: datetime
+
+  endDate: datetime
+
+  description: string
+
+  workOrder: WorkOrder
+
+  supplierName: string
+
+  technician: string
+}

@@ -1,0 +1,18 @@
+/**
+ * Fill in type description here.
+ */
+enum type PaymentMethod {
+
+    
+    CREDIT_CARD = 'Credit Card'
+
+    
+    DEBIT_CARD = 'Debit Card'
+
+    
+    CASH = 'Cash'
+
+   
+    MOBILE_PAYMENT = 'Mobile Payment'
+
+}

@@ -1,0 +1,11 @@
+/**
+ * OperationAlert.c3typ
+ *
+ * Stores alert messages tied to a specific operation (e.g., warnings, issues, delays).
+ */
+ 
+entity type OperationAlert {
+    operation: Operation
+
+    message: string
+}

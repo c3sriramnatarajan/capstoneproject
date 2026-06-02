@@ -1,0 +1,15 @@
+/**
+ * The Canonical format for a manufacturer entity.
+ */
+
+type CanonicalManufacturer mixes Canonical<CanonicalManufacturer>{
+  /**
+   * The ID of the manufacturer.
+   */
+  id: !string
+
+  /**
+   * The full name of the manufacturer.
+   */
+  fullName: string
+}

@@ -1,0 +1,12 @@
+/**
+ * AircraftSensor.c3typ
+ *
+ * Sensor on an aircraft; aggregates one or more measurement series (e.g. fan speed, oil pressure).
+ */
+
+@db(unique=['aircraft'])
+entity type AircraftSensor {
+    aircraft: Aircraft
+
+    allSeries: [SensorMeasurementSeries](sensor)
+}

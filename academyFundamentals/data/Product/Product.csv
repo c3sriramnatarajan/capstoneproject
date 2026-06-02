@@ -1,0 +1,31 @@
+id,name,description,category,unitPrice
+prod_001,Wireless Bluetooth Headphones,Premium over-ear headphones with noise cancellation and 30-hour battery life,Electronics,129.99
+prod_002,Organic Cotton T-Shirt,100% organic cotton crew neck t-shirt available in multiple colors,Clothing,24.99
+prod_003,Stainless Steel Water Bottle,Insulated 32oz water bottle that keeps drinks cold for 24 hours,Home & Kitchen,34.99
+prod_004,Smartphone Case,Protective silicone case compatible with latest smartphone models,Electronics,19.99
+prod_005,Running Shoes,Lightweight athletic shoes with breathable mesh and cushioned sole,Footwear,89.99
+prod_006,Coffee Maker,12-cup programmable drip coffee maker with auto shut-off feature,Home & Kitchen,79.99
+prod_007,Denim Jeans,Classic straight-leg jeans made from premium denim fabric,Clothing,59.99
+prod_008,Wireless Charging Pad,Fast wireless charging pad compatible with Qi-enabled devices,Electronics,39.99
+prod_009,Yoga Mat,Non-slip 6mm thick yoga mat with carrying strap,Sports & Outdoors,29.99
+prod_010,Ceramic Dinner Plates Set,Set of 4 microwave and dishwasher safe ceramic plates,Home & Kitchen,49.99
+prod_011,Laptop Backpack,Padded laptop compartment backpack with multiple organizational pockets,Bags & Luggage,69.99
+prod_012,Moisturizing Face Cream,Hydrating daily face cream with SPF 30 protection,Beauty & Personal Care,32.99
+prod_013,Desk Lamp,LED desk lamp with adjustable brightness and USB charging port,Home & Office,45.99
+prod_014,Casual Sneakers,Comfortable canvas sneakers perfect for everyday wear,Footwear,54.99
+prod_015,Bluetooth Speaker,Portable waterproof speaker with 12-hour battery life,Electronics,79.99
+prod_016,Kitchen Knife Set,Professional 8-piece stainless steel knife set with wooden block,Home & Kitchen,149.99
+prod_017,Hooded Sweatshirt,Soft fleece-lined hoodie with front pocket and drawstring hood,Clothing,42.99
+prod_018,Fitness Tracker,Activity tracker with heart rate monitor and sleep tracking,Electronics,199.99
+prod_019,Essential Oil Diffuser,Ultrasonic aromatherapy diffuser with 7 LED color options,Home & Kitchen,39.99
+prod_020,Baseball Cap,Adjustable cotton baseball cap with embroidered logo,Accessories,18.99
+prod_021,Resistance Bands Set,Set of 5 resistance bands with different tension levels,Sports & Outdoors,24.99
+prod_022,Hair Dryer,Ionic hair dryer with 3 heat settings and cool shot button,Beauty & Personal Care,89.99
+prod_023,Throw Pillow,Decorative throw pillow with removable washable cover,Home & Decor,19.99
+prod_024,Trail Mix,Organic mixed nuts and dried fruit snack pack,Food & Beverages,8.99
+prod_025,Sunglasses,UV protection polarized sunglasses with durable frame,Accessories,64.99
+prod_026,Protein Powder,Whey protein powder available in chocolate and vanilla flavors,Health & Nutrition,49.99
+prod_027,Board Game,Strategy board game for 2-4 players ages 12 and up,Toys & Games,34.99
+prod_028,Hand Sanitizer,70% alcohol gel hand sanitizer in convenient pump bottle,Health & Personal Care,6.99
+prod_029,Phone Charger Cable,6-foot USB-C charging cable with fast charging capability,Electronics,14.99
+prod_030,Scented Candle,Soy wax scented candle with 45-hour burn time,Home & Decor,22.99

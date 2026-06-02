@@ -1,0 +1,9 @@
+{
+  "id": "Status_SmartBulb",
+  "name": "Status",
+  "srcType": "SmartBulb",
+  "description": "Status (1 or 0) indicating ON or OFF of the SmartBulb over time",
+  "path": "bulbMeasurements",
+  "expression": "avg(avg(normalized.data.status))"
+
+}

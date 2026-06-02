@@ -1,0 +1,36 @@
+/**
+ * The Canonical format for a WindTurbine entity.
+ */
+
+type CanonicalWindTurbine mixes Canonical<CanonicalWindTurbine> { 
+    /**
+     * The ID of the wind turbine.
+     */
+    asset: string
+
+    /**
+     * The latitude of the wind turbine.
+     */
+    latitude: double
+
+    /**
+     * The longitude of the wind turbine.
+     */
+    longitude: double
+
+    /**
+     * The power output of the wind turbine in watts.
+     */
+    powerInWatts: int
+
+    /**
+     * The manufacturer of the wind turbine.
+     */
+    manufacturer: string
+
+    /**
+     * The type of turbine: micro, utility, or offshore.
+     */
+    turbineType: string
+}
+

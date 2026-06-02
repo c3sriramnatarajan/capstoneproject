@@ -1,0 +1,7 @@
+{
+    "name": "ManufacturerSourceCollection",
+    "source": "SourceManufacturer",
+    "sourceSystem": {
+        "name": "Canonical"
+    }
+}

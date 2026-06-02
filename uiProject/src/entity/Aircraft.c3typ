@@ -1,0 +1,21 @@
+/**
+ * Aircraft.c3typ
+ *
+ * Represents a single aircraft with its identity, status, location, and maintenance history links.
+ */
+
+entity type Aircraft {
+    registrationNumber: string
+
+    model: string
+
+    status: string enum("Ready", "In Maintenance", "Grounded", "Deployed")
+
+    lastInspectionDate: datetime
+
+    location: Base
+
+    sensor: AircraftSensor(aircraft)
+
+    maintenanceRecords: [MaintenanceRecord](aircraft)
+}

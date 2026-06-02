@@ -1,0 +1,157 @@
+{
+    "cells": [
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "# Lesson 5: Create Map Filter ",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "In this lesson, we’ll create our first component and add it to the page `WindTurbine.HomePage.tsx`. This component allows users to select zero, one, or many `WindTurbine` IDs, which we'll later use to filter the `WindTurbine`s that appear on the map.",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "### Learning Objectives",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "After completing this lesson, you will be able to:\n- Create a reusable React component.\n- Pass data to components using props.\n- Import and render components in parent pages.",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "### Estimated Time",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "This lesson will take approximately **15 minutes** to complete.",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "### Lab Support",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "For support, check out the <a href=\"https://learn.c3.ai/page/help-center\" target=\"_blank\">Help Center</a> for information.",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "---",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "## Part 1: Create the `WindTurbineFilter` component\n\n**Steps**:\n1. Create a new file: `ui/c3/src/components/WindTurbineFilter.tsx`. This component:\n    - Renders a dropdown with checkboxes for each `WindTurbine` ID. \n    - When a user selects/deselects turbines, the `selectedTurbines` state updates.\n    - Supports multi-select (zero, one, or many `WindTurbine`s can be selected).\n    - Later, we'll use this selection to filter markers on the map.\n\n2. Copy and paste the following code into that file.\n\n\n**Code:**",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 2,
+            "languageId": "typescriptreact",
+            "value": "/*\n  WindTurbineFilter.tsx\n\n  This component provides a filter interface for selecting wind turbines from a dropdown menu.\n  It uses Material-UI components for the dropdown and checkboxes, and maintains the selected turbines in its state.\n*/\n\nimport React from 'react';\nimport '@c3/ui/WindTurbine.scss';\nimport { Select } from '@mui/material';\n\ninterface WindTurbineFilterProps {\n  turbines: WindTurbine[];\n}\n\nconst WindTurbineFilter: React.FC<WindTurbineFilterProps> = ({ turbines }) => {\n \n  return (\n    <>\n      <div className=\"filter-container\">\n        {/* Filter Header */}\n        <div className=\"filter-header\">\n          <h3 className=\"filter-title\">Wind Turbine Filter</h3>\n        </div>\n\n        {/* Dropdown Selection */}\n        <div className=\"filter-dropdown-section\">\n          <label className=\"filter-label\">Select Wind Turbine:</label>\n\n          <Select\n            labelId=\"turbine-select-label\"\n            multiple\n          />\n        </div>\n      </div>\n    </>\n  );\n};\n\nexport default WindTurbineFilter;\n",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "---",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "## Part 2: Add the `WindTurbine` filter component to the home page\n\nAdd the following import statement to the top of <a href=\"../../ui/c3/src/customInstances/WindTurbine.HomePage.tsx\"><code>WindTurbine.HomePage.tsx</code></a>:",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 2,
+            "languageId": "typescriptreact",
+            "value": "/*\n    WindTurbine.HomePage.tsx\n*/\n\n// Other import statements in the project\nimport WindTurbineFilter from '@c3/app/ui/src/components/WindTurbineFilter';\n\n// const WindTurbineHomePage: React.FC = () => {\n//      ...\n// }",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "Now we want to include the `WindTurbineFilter.tsx` component in the return statement. We will be passing the `turbines` state as the `turbines` prop for the component:",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 2,
+            "languageId": "typescriptreact",
+            "value": "/*\n      WindTurbine.HomePage.tsx\n*/\n\n// <MapContainer>\n      <WindTurbineFilter turbines={turbines} />\n//    <ZoomControl>\n// </MapContainer>",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "---",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "## Part 3: Verify the component \n\n**Steps**:\n1. Save your changes and refresh the browser.\n2. You should see a \"Wind Turbine Filter\" dropdown above the map.\n3. Click the dropdown. **You should see an empty dropdown. This is expected**\n\nYour page should match the following image:\n\n<img src=\"../../src/doc/img/lesson-5/map-filter.png\" width=\"750px\" style=\"display: block; margin-left: auto; margin-right: auto;\">",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "-----",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "### Summary\nYou built a reusable `WindTurbineFilter` component and rendered it on the home page.",
+            "output": [],
+            "executionSummary": {}
+        },
+        {
+            "kind": 1,
+            "languageId": "markdown",
+            "value": "<div style=\"display:flex; justify-content:space-between; gap:16px; margin-top:24px; align-items:center; width:100%;\">\n  <a href=\"../mapping-windturbines/3-render-turbine-data.c3nb\"\n     aria-label=\"Go to Lesson 3: Render Turbine Data\"\n     style=\"display:inline-flex; align-items:center; justify-content:center; padding:10px 16px; border-radius:10px; text-decoration:none; font-weight:600; border:1px solid #d0d7de; background:#f6f8fa; color:#0b1026; box-shadow:0 1px 2px rgba(0,0,0,0.06); transition:transform .15s ease, box-shadow .15s ease;\">\n    ← Previous: Render Turbine Data\n  </a>\n  <a href=\"./06-create-redux-state-slice.c3nb\"\n     aria-label=\"Go to Lesson 5: Create a Redux State Slice\"\n     style=\"display:inline-flex; align-items:center; justify-content:center; padding:10px 16px; border-radius:10px; text-decoration:none; font-weight:600; border:1px solid #1f6feb; background:#1f6feb; color:#ffffff; box-shadow:0 1px 2px rgba(0,0,0,0.06); transition:transform .15s ease, box-shadow .15s ease;\">\n    Next: Create a Redux State Slice →\n  </a>\n</div>",
+            "output": [],
+            "executionSummary": {}
+        }
+    ],
+    "metadata": {
+        "id": "ef21eb4c-ad95-4177-a024-66f2e91a14ec",
+        "serializerVersion": "1",
+        "runtime": "js-rhino",
+        "appName": "academyui"
+    }
+}

@@ -1,0 +1,7 @@
+targetModuleName,targetPageName,name,urlPath
+Aircraft,HomePage,/,/
+Aircraft,OperationsPage,/operations,/operations
+Aircraft,AircraftsPage,/aircrafts,/aircrafts
+Aircraft,AircraftDetailsPage,/aircrafts/{{aircraftId}},/aircrafts/{{aircraftId}}
+Aircraft,BasesPage,/bases,/bases
+Aircraft, BaseDetailsPage, /bases/{{baseId}}, /bases/{{baseId}}

@@ -1,0 +1,23 @@
+entity type WorkOrder{
+
+    workOrderId: string
+
+    turbineId: WindTurbine
+
+    title: string
+
+    description: string
+
+    status: string enum('Open', 'In Progress', 'Closed')
+
+    dueDate: datetime
+
+    creationDate: datetime
+
+    estimatedHours: decimal
+
+    assignedTo: string
+
+    priority: string enum('Low', 'Medium', 'High', 'Critical')
+
+}

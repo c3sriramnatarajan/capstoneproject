@@ -1,0 +1,7 @@
+/**
+ * Fill in type description here.
+ */
+entity type UtilityScaleWindTurbine extends WindTurbine type key 'UTIL'{
+
+  operationCostPerHour: double = 50.0
+}
