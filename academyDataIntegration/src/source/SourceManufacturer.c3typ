@@ -7,4 +7,7 @@ type SourceManufacturer mixes Source {
     @ser(name="manufacturer name")
     manufacturerName: string
 
+    @ser(name="country_code")
+    countryCode: string
+
 }

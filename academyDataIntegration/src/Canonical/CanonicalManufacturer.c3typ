@@ -8,6 +8,7 @@ type CanonicalManufacturer mixes Canonical<CanonicalManufacturer>{
    */
   id: !string
 
+  countryCode: string
   /**
    * The full name of the manufacturer.
    */
