@@ -5,3 +5,9 @@
 .vscode
 **/gen/cache/**
 .c3nbrc.js
+
+# macOS junk
+.DS_Store
+
+# Local machine settings (not shared)
+.claude/settings.local.json

@@ -32,6 +32,23 @@ When given instructions, follow them literally:
 - Circuit breaker: if two explanations for the same error have both failed,
   stop and re-read the instructions from scratch before trying a third.
 
+# Debugging methodically
+
+When something breaks, do not jump to a conclusion and act on it:
+
+- State the hypothesis out loud as a hypothesis, not a fact ("I think it's X
+  because Y" — not "it's X, do this").
+- Before running anything, say what test will confirm or rule out the
+  hypothesis, and what each possible outcome would mean. Get the user on the
+  same page first.
+- Prefer adding debugging/observability (e.g. counts at each stage, log lines,
+  status checks) over guessing. Locate exactly where the chain breaks before
+  proposing a fix.
+- Use read-only checks first; do not delete or mutate data to "see if that
+  fixes it" until the cause is confirmed.
+- Move one step at a time and report results together with the user. Do not
+  stack several speculative fixes in one go.
+
 # Writing and fixing code
 
 Favor the simplest solution; do not overengineer:
