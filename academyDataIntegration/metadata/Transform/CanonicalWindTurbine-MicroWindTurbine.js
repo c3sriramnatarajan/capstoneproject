@@ -2,7 +2,7 @@ data = {
     name: 'CanonicalWindTurbine-MicroWindTurbine',
     source: 'CanonicalWindTurbine',
     target: 'MicroWindTurbine',
-    filter: "turbineType == 'micro'",
+    condition: turbineType == 'micro',
     projection: {
         //We are trying to map everything in the context of microwindturbine from the windturbines
         //we are saying that id should be what asset is

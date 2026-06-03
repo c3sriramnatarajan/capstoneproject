@@ -8,7 +8,7 @@ data = {
         longitude: split(lat_long, "_")[1],
         powerInWatts: powerInkW * 1000,
         manufacturer: replace(manufacturer, ":", ""),
-        turbineType: turbineType
+        turbineType: trim(turbineType)
 
     }
 }

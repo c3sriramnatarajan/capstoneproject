@@ -2,6 +2,6 @@
  * Fill in type description here.
  */
 entity type MicroWindTurbine extends WindTurbine type key 'MICRO' {
-  
+
   operationCostPerHour: double = 5.0
 }

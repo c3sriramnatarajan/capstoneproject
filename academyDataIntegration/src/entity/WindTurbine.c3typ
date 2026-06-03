@@ -2,7 +2,7 @@
  * A representation of a WindTurbine entity.
  */
 
-entity type WindTurbine {
+extendable entity type WindTurbine {
     /**
      * The WindTurbine ID
      */

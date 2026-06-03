@@ -2,7 +2,7 @@ data = {
     name: 'CanonicalWindTurbine-UtilityScaleWindTurbine',
     source: 'CanonicalWindTurbine',
     target: 'UtilityScaleWindTurbine',
-    filter: "turbineType == 'utility'",
+    condition: turbineType == 'utility',
     projection: {
         // Map the canonical's asset onto the entity's unique id field
         id: asset,
