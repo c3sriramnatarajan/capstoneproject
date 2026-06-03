@@ -4,6 +4,7 @@ data = {
     target: "CanonicalManufacturer",
     projection: {
         id: upperCase(manufacturerId),
-        fullName: manufacturerName
+        fullName: manufacturerName,
+        countryCode: trim(countryCode)
     }
 }
