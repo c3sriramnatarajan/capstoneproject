@@ -6,6 +6,8 @@ data = {
     // Manufacturer's id
     id: id,
 
+    countryCode: countryCode,
+
     // Manufacturer's full name
     fullName: fullName,
   },
