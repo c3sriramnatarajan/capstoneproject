@@ -161,3 +161,11 @@ function isOutlier(value, power) {
     if (!power || power <= 0) return false;
     return Math.abs(value - power) / power >= 0.20;
 }
+
+/**
+ * Static trigger for the daily CronJob: create and start a fresh batch-job run.
+ */
+function runScheduled() {
+    var opts = WindTurbineMeasurementBatchJobOptions.make({ filterOutliers: true });
+    WindTurbineMeasurementBatchJob.make({ options: opts }).merge().start();
+}
