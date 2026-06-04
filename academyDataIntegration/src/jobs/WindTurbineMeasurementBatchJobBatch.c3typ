@@ -1,0 +1,11 @@
+/**
+ * One unit of work for the WindTurbineMeasurementBatchJob.
+ * Each batch holds the URLs of (up to) 2 raw data files to process.
+ */
+type WindTurbineMeasurementBatchJobBatch {
+
+    /**
+     * The file URLs (in the data-load mount) that this batch processes.
+     */
+    fileUrls: [string]
+}

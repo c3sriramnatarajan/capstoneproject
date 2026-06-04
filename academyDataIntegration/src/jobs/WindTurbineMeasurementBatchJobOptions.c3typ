@@ -1,0 +1,12 @@
+/**
+ * Configurable options for a WindTurbineMeasurementBatchJob run.
+ */
+type WindTurbineMeasurementBatchJobOptions {
+
+    /**
+     * When true, measurements whose power deviates 20% or more from the
+     * turbine's rated power are detected and logged to OpenSearch.
+     * The data points themselves are never removed.
+     */
+    filterOutliers: boolean = true
+}
