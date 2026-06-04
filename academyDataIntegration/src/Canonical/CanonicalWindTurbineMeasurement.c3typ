@@ -1,0 +1,30 @@
+/**
+ * The Canonical format for a WindTurbineMeasurement interval data point.
+ */
+type CanonicalWindTurbineMeasurement mixes Canonical<CanonicalWindTurbineMeasurement> {
+
+    /**
+     * Unique identifier for the measurement record from the source file.
+     */
+    measurementId: string
+
+    /**
+     * The id of the {@link WindTurbine} this measurement belongs to.
+     */
+    turbineId: string
+
+    /**
+     * The start timestamp of the measurement interval.
+     */
+    start: datetime
+
+    /**
+     * The end timestamp of the measurement interval.
+     */
+    end: datetime
+
+    /**
+     * The measured power output, in watts.
+     */
+    value: double
+}

@@ -1,0 +1,16 @@
+/**
+ * A single interval time series data point of power output for a {@link WindTurbine}.
+ * The interval (start/end) and the parent series reference are provided by the
+ * IntervalDataPoint mixin.
+ */
+@db(datastore='kv',
+    partitionKeyField='parent',
+    persistenceOrder='start')
+entity type WindTurbineMeasurement mixes IntervalDataPoint<WindTurbineMeasurementSeries> schema name "WINDTURBINEMEASUREMENT" {
+
+    /**
+     * The measured power output, in watts. Averaged when normalized over an interval.
+     */
+    @ts(treatment='avg')
+    value: double
+}

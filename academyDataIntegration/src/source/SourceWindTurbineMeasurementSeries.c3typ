@@ -1,0 +1,6 @@
+type SourceWindTurbineMeasurementSeries mixes Source {
+
+    id: string
+
+    windTurbine: string
+}
