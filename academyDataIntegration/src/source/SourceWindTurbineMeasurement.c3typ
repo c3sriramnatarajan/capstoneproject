@@ -1,0 +1,12 @@
+type SourceWindTurbineMeasurement mixes Source {
+
+    measurement_id: string
+
+    turbine_id: string
+
+    start_time: string
+
+    end_time: string
+
+    watts: double
+}

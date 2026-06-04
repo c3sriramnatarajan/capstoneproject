@@ -1,0 +1,17 @@
+{
+  "id": "wind-turbine-measurement-daily-ingest",
+  "name": "WindTurbineMeasurementDailyIngest",
+  "description": "Triggers the WindTurbineMeasurementBatchJob every day at 12:00 PM UTC to ingest any new files in the data-load mount.",
+  "action": {
+    "typeName": "WindTurbineMeasurementBatchJob",
+    "actionName": "runScheduled"
+  },
+  "concurrent": false,
+  "inactive": false,
+  "scheduleDef": {
+    "startTime": null,
+    "endTime": null,
+    "cronExpression": "0 0 12 * * ?",
+    "timeZone": "UTC"
+  }
+}

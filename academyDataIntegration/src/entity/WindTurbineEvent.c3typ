@@ -8,6 +8,10 @@ entity type WindTurbineEvent {
     */
     eventCode: string
 
+    id: string
+
+    severity: int
+
     /**
     * The WindTurbine associated with the event
     */

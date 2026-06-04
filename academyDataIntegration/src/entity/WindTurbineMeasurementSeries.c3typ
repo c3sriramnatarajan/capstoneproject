@@ -1,0 +1,11 @@
+/**
+ * The time series header for {@link WindTurbineMeasurement} power data points.
+ * One series exists per {@link WindTurbine}.
+ */
+entity type WindTurbineMeasurementSeries mixes IntervalDataHeader<WindTurbineMeasurement> schema name "WINDTURBINEMEASUREMENTSERIES" {
+
+    /**
+     * The {@link WindTurbine} that these measurements belong to.
+     */
+    windTurbine: !WindTurbine
+}

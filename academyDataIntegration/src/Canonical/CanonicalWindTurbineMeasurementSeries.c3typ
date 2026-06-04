@@ -1,0 +1,15 @@
+/**
+ * The Canonical format for a WindTurbineMeasurementSeries time series header.
+ */
+type CanonicalWindTurbineMeasurementSeries mixes Canonical<CanonicalWindTurbineMeasurementSeries> {
+
+    /**
+     * Unique identifier for the measurement series (e.g. "WTMS_Turbine0").
+     */
+    id: string
+
+    /**
+     * The id of the associated {@link WindTurbine}, stored as a string in canonical form.
+     */
+    windTurbine: string
+}

@@ -7,12 +7,18 @@ data = {
     eventCode: eventCode,
 
     // The id of the WindTurbine this event is associated with
-    asset: { id: turbineId },
+    asset: { id: asset },
 
     // The start time of the WindTurbineEvent
     start: start,
 
     // The end time of the WindTurbineEvent
     end: end,
+
+
+    //Created in 2.a.4
+    severity: severity,
+
+    id: id
   },
 };

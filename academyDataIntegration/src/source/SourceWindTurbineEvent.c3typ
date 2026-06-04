@@ -5,6 +5,8 @@ type SourceWindTurbineEvent mixes Source {
 
     event_code: string 
 
-    asset: string 
+    asset: string
+
+    event_id: string
 
 }

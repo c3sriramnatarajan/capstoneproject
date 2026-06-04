@@ -1,0 +1,7 @@
+{
+    "name": "WindTurbineMeasurementSeriesSourceCollection",
+    "source": "SourceWindTurbineMeasurementSeries",
+    "sourceSystem": {
+        "name": "Canonical"
+    }
+}

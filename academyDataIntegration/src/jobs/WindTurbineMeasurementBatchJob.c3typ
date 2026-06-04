@@ -1,0 +1,40 @@
+/**
+ * WindTurbineMeasurementBatchJob.c3typ
+ *
+ * Processes raw WindTurbineMeasurement files (2025-2028) in parallel batches:
+ * cleans the data, logs outliers to OpenSearch, generates the matching
+ * WindTurbineMeasurementSeries records, uploads the results to their
+ * FileSourceCollection inboxes, and archives the originals.
+ */
+type WindTurbineMeasurementBatchJob
+    extends BatchJob<WindTurbineMeasurementBatchJob, WindTurbineMeasurementBatchJobOptions, WindTurbineMeasurementBatchJobBatch>
+    type key 'WTMBATCHJOB' {
+
+    // Stage 1: list the files and schedule batches of 2.
+    doStart: ~ js-server
+
+    // Stage 2: clean + generate series + upload + archive (runs per batch, in parallel).
+    processBatch: ~ js-server
+
+    // Stage 3: sync and process the uploaded SourceFiles once all batches finish.
+    allComplete: ~ js-server
+
+    /**
+     * Normalize a raw timestamp string to dash-separated format
+     * (e.g. "2025/01/01 00:00" -> "2025-01-01 00:00"). Pure / unit-testable.
+     */
+    normalizeDateTime: function(raw: string): string js-server
+
+    /**
+     * True when a measured power value deviates 20% or more from the turbine's
+     * rated power. Returns false if rated power is missing or non-positive.
+     * Pure / unit-testable.
+     */
+    isOutlier: function(value: double, power: double): boolean js-server
+
+    /**
+     * Static trigger used by the daily CronJob: creates and starts a fresh
+     * batch-job run so any newly arrived files in data-load get processed.
+     */
+    runScheduled: function() js-server
+}
