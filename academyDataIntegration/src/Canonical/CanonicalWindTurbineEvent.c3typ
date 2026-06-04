@@ -8,6 +8,9 @@ type CanonicalWindTurbineEvent mixes Canonical<CanonicalWindTurbineEvent> {
    */
   start:      !datetime
 
+  //Created in part 2a.4
+  id: string 
+  severity: int
   /**
    * The end timestamp of the event.
    */

@@ -5,7 +5,9 @@ data = {
     projection: {
         start: dateTime(start),
         end: dateTime(end),
-        asset: upperCase(turbineId),
-        eventCode: replace(",", "")
+        asset: concat("TURBINE_", asset),
+        eventCode: event_code,
+        id: trim(event_id),
+        severity: split(event_code, "-")[1]
     }
 }
