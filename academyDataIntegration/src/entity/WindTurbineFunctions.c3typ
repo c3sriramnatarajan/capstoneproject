@@ -1,0 +1,17 @@
+/**
+ * Custom expression-engine functions used by WindTurbine calc fields.
+ */
+type WindTurbineFunctions mixes ExpressionEngineFunction {
+
+    /**
+     * Returns the most recent critical event (severity == 3) from a
+     * newest-first ordered list of events, or null if none are critical.
+     */
+    getLatestCriticalEvent: function(events: [WindTurbineEvent]): WindTurbineEvent js-server
+
+    /**
+     * Days elapsed between the given start time and now.
+     * Returns null if no start time is provided.
+     */
+    daysSinceCriticalEvent: function(eventStart: datetime): double js-server
+}

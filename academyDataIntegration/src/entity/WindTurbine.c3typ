@@ -3,6 +3,7 @@
  */
 
 extendable entity type WindTurbine {
+
     /**
      * The WindTurbine ID
      */
@@ -31,5 +32,13 @@ extendable entity type WindTurbine {
     /**
      * The collection of {@link WindTurbineEvent}s associated
      */
+
+    @db(order='descending(start)')
     turbineEvents: [WindTurbineEvent](asset)
+
+    latestEvent: WindTurbineEvent stored calc turbineEvents[0]
+
+    latestCriticalEvent: WindTurbineEvent stored calc getLatestCriticalEvent(turbineEvents.(severity == 3))
+
+    daysSinceCriticalEvent: double calc daysSinceCriticalEvent(latestCriticalEvent.start)
 }
